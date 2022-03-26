@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 enum RecordType {
   Income = 'income',
@@ -10,9 +10,10 @@ interface IRecord {
   date: Date
   description: string
   amount: number
+  accountId: Schema.Types.ObjectId
 }
 
-const recordSchema = new mongoose.Schema<IRecord>({
+const recordSchema = new Schema<IRecord>({
   type: {
     type: String,
     required: true
@@ -29,8 +30,14 @@ const recordSchema = new mongoose.Schema<IRecord>({
     type: Number,
     required: true
   },
+  accountId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Account',
+    index: true,
+    required: true
+  }
 })
 
-const Record = mongoose.model('Record', recordSchema)
+const Record = model('Record', recordSchema)
 
 export { Record }
