@@ -3,7 +3,8 @@ import { Schema, model } from 'mongoose'
 interface IUser {
   username: string
   email: string
-  password: string
+  hash: string
+  salt: string
   avatar: string
 }
 
@@ -18,7 +19,11 @@ const userSchema = new Schema<IUser>({
     required: true,
     unique: true,
   },
-  password: {
+  hash: {
+    type: String,
+    required: true,
+  },
+  salt: {
     type: String,
     required: true,
   },

@@ -1,16 +1,17 @@
-import { compareSync, hashSync } from 'bcrypt'
-import jwt from 'jsonwebtoken'
-
-import config from '../configuration/config'
 import ApiError from '../middleware/ApiError'
 import { User } from '../models/user'
+import * as utils from '../lib/utils'
 
 class UserService {
   async CreateUser(user: any) {
+    const saltHash = utils.genPassword(user.password)
+
     const userToAdd = new User({
       ...user,
-      password: hashSync(user.password, 10),
+      salt: saltHash.salt,
+      hash: saltHash.hash,
     })
+
     return userToAdd.save()
   }
 
@@ -21,33 +22,19 @@ class UserService {
       throw ApiError.notFound('User not found')
     }
 
-    if (!compareSync(credentials.password, foundUser.password)) {
+    const isValid = utils.validPassword(
+      credentials.password,
+      foundUser.hash,
+      foundUser.salt,
+    )
+
+    if (!isValid) {
       throw ApiError.forbidden('Incorrect password')
     }
 
-    const token = jwt.sign(
-      {
-        username: credentials.username,
-        id: foundUser._id,
-      },
-      config.jwtSecret,
-      { expiresIn: config.jwtTokenLife },
-    )
+    const tokenObject = utils.issueJWT(foundUser)
 
-    const refreshToken = jwt.sign(
-      {
-        username: credentials.username,
-        id: foundUser._id,
-      },
-      config.jwtRefreshSecret,
-      { expiresIn: config.jwtRefreshTokenLife },
-    )
-
-    return {
-      status: 'Logged in',
-      token,
-      refreshToken,
-    }
+    return tokenObject
   }
 }
 
