@@ -11,6 +11,7 @@ interface IRecord {
   description: string
   amount: number
   accountId: Schema.Types.ObjectId
+  categoryId: Schema.Types.ObjectId
 }
 
 const recordSchema = new Schema<IRecord>({
@@ -33,6 +34,12 @@ const recordSchema = new Schema<IRecord>({
   accountId: {
     type: Schema.Types.ObjectId,
     ref: 'Account',
+    index: true,
+    required: true
+  },
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     index: true,
     required: true
   }
