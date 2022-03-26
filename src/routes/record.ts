@@ -1,6 +1,6 @@
-import express, { Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 
-const router = express.Router()
+const router = Router()
 
 router.get('/api/record', [], (req: Request, res: Response) => {
   return res.send('the record')

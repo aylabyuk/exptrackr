@@ -1,26 +1,30 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import { json } from 'body-parser'
+import cors from 'cors'
 
+import config from './configuration/config'
 import { recordRouter } from './routes/record'
-
-require('dotenv').config()
+import { userRouter } from './routes/user'
+import apiErrorHandler from './middleware/apiErrorHandler'
 
 const app = express()
-app.use(json())
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
 app.use(recordRouter)
+app.use(userRouter)
 
-mongoose.connect(
-  process.env.MONGODB_CONNECTION || '',
-  {},
-  (error) => {
-    if (error) {
-      console.log(error)
-    }
-    console.log('connected to database')
-  },
-)
+mongoose.connect(config.mongodbconnection || '', {}, (error) => {
+  if (error) {
+    console.log(error)
+  }
+  console.log('connected to database')
+})
 
-app.listen(3000, () => {
-  console.log('server is listening on port 3000')
+app.use(apiErrorHandler)
+
+app.listen(config.port, () => {
+  console.log(`server is listening on port ${config.port}`)
 })
