@@ -7,30 +7,29 @@ const userService = new UserService()
 class UserController {
   async CreateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = req.body
-      const result = await userService.CreateUser(user)
+      const result = await userService.CreateUser(req.body)
 
-      res.send({
-        success: true,
-        message: 'User created successfully.',
-        user: {
-          id: result._id,
-          username: result.username,
-          email: result.email,
-          avatar: result.avatar,
-        },
+      res.status(201).send({
+        id: result._id,
+        username: result.username,
+        email: result.email,
+        avatar: result.avatar,
       })
     } catch (error: any) {
       if (error.code === 11000) {
         next(ApiError.conflict('Username or email already exist'))
-        return
       }
-
-      next(ApiError.internal('Failed to create user'))
     }
   }
 
-  async LoginUser(req: Request, res: Response, next: NextFunction) {}
+  async LoginUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await userService.LoginUser(req.body)
+      res.status(200).send(result)
+    } catch (error: any) {
+      next(error)
+    }
+  }
 }
 
 export default UserController

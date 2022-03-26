@@ -9,6 +9,12 @@ const UserValidations = {
       avatar: Joi.string().uri(),
     }),
   },
+  loginUserValidator: {
+    body: Joi.object({
+      email: Joi.string().required().email(),
+      password: Joi.string().alphanum().min(6).required(),
+    }),
+  },
 }
 
 export default UserValidations

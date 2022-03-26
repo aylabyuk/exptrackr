@@ -20,7 +20,7 @@ app.use(userRouter)
 
 app.use(apiErrorHandler)
 
-mongoose.connect(config.mongodbconnection || '', {}, (error) => {
+mongoose.connect(config.mongodbconnection, {}, (error) => {
   if (error) {
     console.log(error)
   }

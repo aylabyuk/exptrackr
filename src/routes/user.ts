@@ -14,6 +14,10 @@ router.post(
   userController.CreateUser,
 )
 
-router.post('/user/login', userController.LoginUser)
+router.post(
+  '/user/login',
+  validate(UserValidator.loginUserValidator),
+  userController.LoginUser,
+)
 
 export { router as userRouter }
