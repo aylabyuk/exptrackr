@@ -35,10 +35,12 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-validation": "^3.0.8",
+    "express-winston": "^4.2.0",
     "joi": "^17.6.0",
     "mongoose": "^6.2.8",
     "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "winston": "^3.6.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

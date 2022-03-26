@@ -7,9 +7,6 @@ const apiErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  // TODO: replace with proper logging library
-  console.log(err)
-
   if (err instanceof ApiError) {
     res.status(err.code).json(err.message)
     return
