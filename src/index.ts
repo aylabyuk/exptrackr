@@ -18,6 +18,8 @@ app.use(logger)
 app.use(recordRouter)
 app.use(userRouter)
 
+app.use(apiErrorHandler)
+
 mongoose.connect(config.mongodbconnection || '', {}, (error) => {
   if (error) {
     console.log(error)
@@ -25,8 +27,12 @@ mongoose.connect(config.mongodbconnection || '', {}, (error) => {
   console.log('connected to database')
 })
 
-app.use(apiErrorHandler)
+mongoose.connection.once('open', () => {
+  app.emit('ready')
+})
 
-app.listen(config.port, () => {
-  console.log(`server is listening on port ${config.port}`)
+app.on('ready', () => {
+  app.listen(config.port, () => {
+    console.log(`server is listening on port ${config.port}`)
+  })
 })

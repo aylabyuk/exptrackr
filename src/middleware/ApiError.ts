@@ -7,6 +7,10 @@ class ApiError {
     this.message = message
   }
 
+  static conflict(msg: string) {
+    return new ApiError(409, msg)
+  }
+
   static badRequest(msg: string) {
     return new ApiError(400, msg)
   }

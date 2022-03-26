@@ -12,6 +12,12 @@ const apiErrorHandler = (
     return
   }
 
+  // Joi errors
+  if (err.name === 'ValidationError') {
+    res.status(400).json(err)
+    return
+  }
+
   res.status(500).json('something went wrong')
 }
 
