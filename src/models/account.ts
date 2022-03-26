@@ -12,6 +12,7 @@ interface IAccount {
   cardType: CardType
   maskedNumber: string
   description?: string
+  ownerId: Schema.Types.ObjectId
 }
 
 const accountSchema = new Schema<IAccount>({
@@ -33,6 +34,12 @@ const accountSchema = new Schema<IAccount>({
   },
   description: {
     type: String
+  },
+  ownerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
 })
 
