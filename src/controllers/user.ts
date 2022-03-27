@@ -10,7 +10,6 @@ class UserController {
       const result = await userService.CreateUser(req.body)
 
       res.status(201).send({
-        id: result._id,
         username: result.username,
         email: result.email,
         avatar: result.avatar,
