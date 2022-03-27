@@ -10,21 +10,20 @@ const categorySchema = new Schema<ICategory>({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   description: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   icon: {
     type: String,
     required: true,
     unique: true,
-    trim: true
-  }
+  },
 })
 
 const Category = model('Category', categorySchema)
 
-export { Category }
+export { Category, ICategory }

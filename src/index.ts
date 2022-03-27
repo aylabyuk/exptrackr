@@ -62,8 +62,8 @@ app.use('/api', routes)
 
 app.use(apiErrorHandler)
 
-// app.on('databaseReady', () => {
-app.listen(config.port, () => {
-  console.log(`server is listening on port ${config.port}`)
+app.on('databaseReady', () => {
+  app.listen(config.port, () => {
+    console.log(`server is listening on port ${config.port}`)
+  })
 })
-// })

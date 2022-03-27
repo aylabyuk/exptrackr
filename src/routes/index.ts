@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { userRouter } from './user'
 import { recordRouter } from './record'
-
-const router = Router()
+import { categoryRouter } from './category'
+import authCheck from '../middleware/authCheck'
 
 /**
  * @swagger
@@ -70,9 +70,13 @@ const router = Router()
  * tags:
  *  - name: Users
  *  - name: Records
+ *  - name: Category
  */
 
+const router = Router()
+
 router.use('/user', userRouter)
+router.use('/category', [authCheck], categoryRouter)
 router.use('/records', recordRouter)
 
 export default router

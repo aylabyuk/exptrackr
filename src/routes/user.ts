@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { validate } from 'express-validation'
-import passport from 'passport'
 
 import UserController from '../controllers/user'
+import authCheck from '../middleware/authCheck'
 import UserValidator from '../validations/user'
 
 const router = Router()
@@ -89,10 +89,6 @@ router.post(
  *      401:
  *        description: Unauthorized
  */
-router.get(
-  '/me',
-  passport.authenticate('jwt', { session: false }),
-  userController.GetLoggedInUser,
-)
+router.get('/me', authCheck, userController.GetLoggedInUser)
 
 export { router as userRouter }

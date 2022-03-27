@@ -1,4 +1,3 @@
-import db from '../../configuration/mongoose'
 import UserService from '../../services/user'
 import { Account, CardType } from '../account'
 
@@ -42,11 +41,9 @@ const SEED_USERS = [
 
 const userService = new UserService()
 
-const connection = db()
-
-connection.once('open', async () => {
-  // seed users
-  await Promise.all(
+// seed users
+const userSeeder = () =>
+  Promise.all(
     SEED_USERS.map((seedUser, index) =>
       userService
         .CreateUser({
@@ -80,5 +77,4 @@ connection.once('open', async () => {
     ),
   )
 
-  connection.close()
-})
+export default userSeeder

@@ -10,7 +10,7 @@
     "lint:fix": "prettier --check '**/*.{js,jsx,ts,tsx,css}'",
     "type-check": "tsc --noEmit",
     "generateKeyPair": "node generateKeyPair",
-    "seed": "ts-node-dev src/models/seeds/userSeeder.ts"
+    "seed": "ts-node-dev src/models/seeds/index.ts"
   },
   "husky": {
     "hooks": {}
