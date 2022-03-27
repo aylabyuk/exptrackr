@@ -115,12 +115,8 @@ const categories: ICategory[] = [
 ]
 
 const categorySeeder = () =>
-  Promise.all(
-    categories.map((category) =>
-      Category.create(category).then(() =>
-        console.log({ message: `successfully seeded ${category.name}` }),
-      ),
-    ),
+  Category.create(categories).then((value) =>
+    console.log({ message: `successfully seeded ${value.length} categories` }),
   )
 
 export default categorySeeder
