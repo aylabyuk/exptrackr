@@ -6,6 +6,7 @@ interface IUser {
   hash: string
   salt: string
   avatar: string
+  password?: string
 }
 
 const userSchema = new Schema<IUser>({

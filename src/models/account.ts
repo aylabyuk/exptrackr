@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose'
 
 enum CardType {
   VISA = 'Visa',
@@ -7,22 +7,19 @@ enum CardType {
 }
 
 interface IAccount {
-  brandName: string
   nameOnCard: string
   cardType: CardType
   maskedNumber: string
   description?: string
+  balance: number
   ownerId: Schema.Types.ObjectId
 }
 
 const accountSchema = new Schema<IAccount>({
-  brandName: {
-    type: String,
-    required: true
-  },
   nameOnCard: {
     type: String,
-    required: true
+    required: true,
+    uppercase: true,
   },
   cardType: {
     type: String,
@@ -33,16 +30,20 @@ const accountSchema = new Schema<IAccount>({
     required: true,
   },
   description: {
-    type: String
+    type: String,
+  },
+  balance: {
+    type: Number,
+    default: 0.0,
   },
   ownerId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     index: true,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const Account = model('Account', accountSchema)
 
-export { Account }
+export { Account, CardType, IAccount }
