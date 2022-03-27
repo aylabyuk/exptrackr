@@ -30,6 +30,14 @@ class UserController {
       next(error)
     }
   }
+
+  async GetLoggedInUser(req: Request, res: Response, next: NextFunction) {
+    res.status(200).send({
+      username: req.user.username,
+      email: req.user.email,
+      avatar: req.user.avatar,
+    })
+  }
 }
 
 export default UserController
