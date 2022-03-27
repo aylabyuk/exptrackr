@@ -13,7 +13,7 @@ const options = {
   algorithms: ['RS256'],
 }
 
-module.exports = (passport: PassportStatic) => {
+const passportConfig = (passport: PassportStatic) => {
   passport.use(
     new JwtStrategy(options, (jwt_payload, done) => {
       User.findOne({ _id: jwt_payload.sub }, (err: any, user: any) => {
@@ -30,3 +30,5 @@ module.exports = (passport: PassportStatic) => {
     }),
   )
 }
+
+export default passportConfig
