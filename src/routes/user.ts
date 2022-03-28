@@ -3,7 +3,7 @@ import { validate } from 'express-validation'
 
 import UserController from '../controllers/user'
 import authCheck from '../middleware/authCheck'
-import UserValidator from '../validations/user'
+import validator from '../validations'
 
 const router = Router()
 
@@ -36,7 +36,7 @@ const userController = new UserController()
  */
 router.post(
   '/register',
-  validate(UserValidator.createUserValidator),
+  validate(validator.createUserValidator),
   userController.CreateUser,
 )
 
@@ -67,7 +67,7 @@ router.post(
  */
 router.post(
   '/login',
-  validate(UserValidator.loginUserValidator),
+  validate(validator.loginUserValidator),
   userController.LoginUser,
 )
 

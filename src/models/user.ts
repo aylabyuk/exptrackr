@@ -9,30 +9,35 @@ interface IUser {
   password?: string
 }
 
-const userSchema = new Schema<IUser>({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
+const userSchema = new Schema<IUser>(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    hash: {
+      type: String,
+      required: true,
+    },
+    salt: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+  {
+    timestamps: true,
   },
-  hash: {
-    type: String,
-    required: true,
-  },
-  salt: {
-    type: String,
-    required: true,
-  },
-  avatar: {
-    type: String,
-    required: true,
-  },
-})
+)
 
 const User = model('User', userSchema)
 

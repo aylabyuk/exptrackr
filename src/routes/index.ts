@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import { userRouter } from './user'
-import { recordRouter } from './record'
-import { categoryRouter } from './category'
+
 import authCheck from '../middleware/authCheck'
+import { userRouter } from './user'
+import { categoryRouter } from './category'
 
 /**
  * @swagger
@@ -37,6 +37,25 @@ import authCheck from '../middleware/authCheck'
  *        type: string
  *        description: Password of the user
  *        example: "password123"
+ *  Category:
+ *    type: object
+ *    properties:
+ *      id:
+ *        type: string
+ *        description: Unique identifier of category
+ *        example: "62407aa5191a8535ea977979"
+ *      name:
+ *        type: string
+ *        description: Name of the category
+ *        example: "Housing"
+ *      description:
+ *        type: string
+ *        description: A usage or description of the category
+ *        example: "Mortgage, Rent, Home insurance, Property tax, HOA, Home Maintenance, Home Improvement, Home Security"
+ *      icon:
+ *        type: string
+ *        description: Fontawesome icon of the category
+ *        example: "fa-house"
  *  UserResponse:
  *    type: object
  *    properties:
@@ -63,20 +82,31 @@ import authCheck from '../middleware/authCheck'
  *        type: string
  *        description: "Lifespan of the genrated token"
  *        example: "1d"
+ *  CategoriesResponse:
+ *    type: array
+ *    items:
+ *      type: Category
+ *    example:
+ *      - id: "62407aa5191a8535ea97797a"
+ *        name: "Transporation"
+ *        description: "Auto loan, Registration, Gas, Road/Bridge toll, Auto maintenance, Public transportation, Parking, Roadside assistance (onstar), Other forms of transportation and associated maintenance (bike, motorcycle, recreation vehicles)"
+ *        icon: "fa-car-side"
+ *      - id: "62407aa5191a8535ea977978"
+ *        name: "Housing"
+ *        description: "Mortgage, Rent, Home insurance, Property tax, HOA, Home Maintenance, Home Improvement, Home Security"
+ *        icon: "fa-house"
  */
 
 /**
  * @swagger
  * tags:
  *  - name: Users
- *  - name: Records
- *  - name: Category
+ *  - name: Categories
  */
 
 const router = Router()
 
 router.use('/user', userRouter)
-router.use('/category', [authCheck], categoryRouter)
-router.use('/records', recordRouter)
+router.use('/categories', [authCheck], categoryRouter)
 
 export default router

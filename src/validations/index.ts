@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const UserValidations = {
+const Validators = {
   createUserValidator: {
     body: Joi.object({
       username: Joi.string().required(),
@@ -17,4 +17,4 @@ const UserValidations = {
   },
 }
 
-export default UserValidations
+export default Validators

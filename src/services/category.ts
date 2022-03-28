@@ -1,10 +1,9 @@
-import { Category, ICategory } from '../models/category'
+import { Category } from '../models/category'
 
 class CategoryService {
-  async CreateCategory(category: ICategory) {
-    const categoryToAdd = new Category(category)
-
-    return categoryToAdd.save()
+  async GetCategories() {
+    const categories = await Category.find()
+    return categories
   }
 }
 

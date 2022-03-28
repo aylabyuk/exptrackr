@@ -17,7 +17,10 @@ class UserController {
     } catch (error: any) {
       if (error.code === 11000) {
         next(ApiError.conflict('Username or email already exist'))
+        return
       }
+      console.log(error)
+      next(error)
     }
   }
 
