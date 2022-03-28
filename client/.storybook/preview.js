@@ -37,5 +37,14 @@ export const parameters = {
         },
       }
     }
+  },
+  backgrounds: {
+    default: 'whitesmoke',
+    values: [
+      {
+        name: 'whitesmoke',
+        value: '#F5F5F5'
+      }
+    ]
   }
 };

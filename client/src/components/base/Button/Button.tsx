@@ -17,10 +17,10 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       className={clsx(
-        'rounded-2xl flex flex-row justify-center items-center w-full h-14 text-title3 gap-3',
-        type === 'primary' && 'bg-violet-100 text-light-80',
-        type === 'secondary' && 'bg-violet-20 text-violet-100',
-        type === 'ghost' && 'bg-light-60 text-dark-50',
+        'flex flex-row gap-3 justify-center items-center w-full h-14 text-title3 rounded-2xl',
+        type === 'primary' && 'text-light-80 bg-violet-100',
+        type === 'secondary' && 'text-violet-100 bg-violet-20',
+        type === 'ghost' && 'text-dark-50 bg-light-60',
         className,
       )}
     >
