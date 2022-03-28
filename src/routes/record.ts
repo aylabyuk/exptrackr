@@ -53,7 +53,7 @@ router.post(
  *         description: Operation failed
  */
 router.post(
-  '/create/income',
+  '/income',
   validate(validator.createRecordValidator),
   recordController.CreateIncomeRecord,
 )
