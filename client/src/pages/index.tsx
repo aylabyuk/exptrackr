@@ -1,17 +1,19 @@
 import React from 'react'
+import { NextPage } from 'next'
 import Head from 'next/head'
 
-// import HomeLayout from '../components/layouts/homeLayout'
+import MainLayout from '../components/layouts/MainLayout/MainLayout'
 
-export const Home: React.FC = () => {
+export const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Oriel Vinci</title>
+        <title>Expense Tracker</title>
         <body className="overflow-hidden h-full" />
       </Head>
-      {/* <HomeLayout /> */}
-      <div className="text-blue-500">Hello</div>
+      <div className="bg-slate-500">
+        <MainLayout>content</MainLayout>
+      </div>
     </div>
   )
 }
