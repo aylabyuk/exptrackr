@@ -5,7 +5,11 @@ export interface MainLayoutProps {
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  return <div className="w-full h-full">{children}</div>
+  return (
+    <div className="overflow-hidden relative grow max-w-screen-md bg-light-100">
+      {children}
+    </div>
+  )
 }
 
 export default MainLayout

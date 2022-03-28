@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       className={clsx(
-        'flex flex-row gap-3 justify-center items-center w-full h-14 text-title3 rounded-2xl',
+        'flex flex-row gap-3 justify-center items-center w-full h-14 text-title3 rounded-2xl active:ring-1',
         type === 'primary' && 'text-light-80 bg-violet-100',
         type === 'secondary' && 'text-violet-100 bg-violet-20',
         type === 'ghost' && 'text-dark-50 bg-light-60',
