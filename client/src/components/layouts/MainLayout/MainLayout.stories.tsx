@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import MainLayout, { MainLayoutProps } from './MainLayout'
 
 const storyConfig: Meta = {
-  title: 'Base/MainLayout',
+  title: 'Layout/MainLayout',
   component: MainLayout,
   parameters: {
     componentSubtitle: 'Default layout for the app',

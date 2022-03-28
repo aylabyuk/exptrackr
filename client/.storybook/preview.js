@@ -19,4 +19,23 @@ export const parameters = {
   previewTabs: {
     'storybook/docs/panel': { index: -1 },
   },
+  viewport: {
+    defaultViewport: 'iphoneSE',
+    viewports: {
+      iphone12: {
+        name: 'iphone12 viewport',
+        styles: {
+          width: '390px',
+          height: '844px'
+        },
+      },
+      iphoneSE: {
+        name: 'iphoneSE viewport',
+        styles: {
+          width: '375px',
+          height: '667px'
+        },
+      }
+    }
+  }
 };

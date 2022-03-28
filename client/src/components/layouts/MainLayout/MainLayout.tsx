@@ -5,7 +5,7 @@ export interface MainLayoutProps {
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  return <div className="">{children}</div>
+  return <div className="w-full h-full">{children}</div>
 }
 
 export default MainLayout
