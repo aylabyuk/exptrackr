@@ -69,6 +69,12 @@ module.exports = {
       small: ['13px', '16px'],
       tiny: ['12px', '12px']
     },
+    fontWeight: {
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700
+    },
     extend: {
       fontFamily: {
         'sans': [ 'Inter', ...defaultTheme.fontFamily.sans ]
