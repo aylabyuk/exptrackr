@@ -3,6 +3,7 @@ import { Router } from 'express'
 import authCheck from '../middleware/authCheck'
 import { userRouter } from './user'
 import { categoryRouter } from './category'
+import { recordRouter } from './record'
 
 /**
  * @swagger
@@ -56,6 +57,41 @@ import { categoryRouter } from './category'
  *        type: string
  *        description: Fontawesome icon of the category
  *        example: "fa-house"
+ *  Record:
+ *    type: object
+ *    properties:
+ *      date:
+ *        type: date-time
+ *        description: DateTime of the transaction
+ *        example: 2017-07-21T17:32:28Z
+ *      description:
+ *        type: string
+ *        description: A short description about the transaction
+ *        example: "Mortgage, Rent, Home insurance, Property tax, HOA, Home Maintenance, Home Improvement, Home Security"
+ *      amount:
+ *        type: number
+ *        description: Transaction amount
+ *        example: 20.50
+ *      accountId:
+ *        type: string
+ *        description: Card account that the transaction will use
+ *        example: "62507aa3191a8125eb9"
+ *      categoryId:
+ *        type: string
+ *        description: Category id where this transaction belong
+ *        example: "12122aa31768s125eb9"
+ *      merchantWebsite:
+ *        type: string
+ *        description: Website of the merchant
+ *        example: "spotify.com"
+ *      merchantName:
+ *        type: string
+ *        description: Name of the merchant for the transaction
+ *        example: "Spotify"
+ *      merchantLogo:
+ *        type: string
+ *        description: Logo of the Merchant
+ *        example: "https://logo.clearbit.com/spotify.com"
  *  UserResponse:
  *    type: object
  *    properties:
@@ -102,11 +138,13 @@ import { categoryRouter } from './category'
  * tags:
  *  - name: Users
  *  - name: Categories
+ *  - name: Records
  */
 
 const router = Router()
 
 router.use('/user', userRouter)
 router.use('/categories', [authCheck], categoryRouter)
+router.use('/record', [authCheck], recordRouter)
 
 export default router
