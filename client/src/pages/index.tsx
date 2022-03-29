@@ -1,16 +1,19 @@
 import React, { useCallback, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
+
 import FullScreenModal from '../components/base/FullScreenModal/FullScreenModal'
 import LoginForm, {
   LoginFormValues,
 } from '../components/forms/LoginForm/LoginForm'
+import OnboardingActions from '../components/features/OnboardingActions/OnboardingActions'
+import Spinner from '../components/vectors/Spinner'
+import Modal from '../components/base/Modal/Modal'
+
 import {
   useGetCurrentLoggedInUserQuery,
   useLoginMutation,
 } from '../redux/features/user/user-api'
-import OnboardingActions from '../components/features/OnboardingActions/OnboardingActions'
-import Spinner from '../components/vectors/Spinner'
 
 export const Onboarding: NextPage = () => {
   const {
@@ -21,7 +24,13 @@ export const Onboarding: NextPage = () => {
 
   const [
     login,
-    { isLoading: isLoggingIn, isError: isLoginError, data: loginResult },
+    {
+      isLoading: isLoggingIn,
+      isError: isLoginError,
+      data: loginResult,
+      error,
+      reset,
+    },
   ] = useLoginMutation()
 
   const [showLoginModal, setShowLoginModal] = useState(false)
@@ -69,6 +78,13 @@ export const Onboarding: NextPage = () => {
       >
         <LoginForm onSubmit={handleLoginFormSubmit} />
       </FullScreenModal>
+
+      <Modal
+        type="error"
+        show={isLoginError}
+        message={`Login failed, please check you email and password`}
+        onRequestClose={reset}
+      />
     </div>
   )
 }
