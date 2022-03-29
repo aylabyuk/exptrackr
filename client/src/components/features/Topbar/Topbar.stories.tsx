@@ -16,8 +16,7 @@ const TopbarExample = Template.bind({})
 TopbarExample.args = {
   user: {
     username: 'thevinci',
-    avatar:
-      'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShaggyMullet&accessoriesType=Wayfarers&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=Platinum&clotheType=Hoodie&clotheColor=Blue02&eyeType=Surprised&eyebrowType=SadConcerned&mouthType=ScreamOpen&skinColor=Pale',
+    avatar: 'https://i.pravatar.cc/100',
     email: 'oriel.absin@gmail.com',
   },
 } as TopbarProps
