@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-// import sessionReducer from './features/session/session-reducer'
+import { userApi } from './features/user/user-api'
 
 const reducers = combineReducers({
-  // session: sessionReducer,
+  [userApi.reducerPath]: userApi.reducer,
 })
 
 const store = configureStore({

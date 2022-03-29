@@ -80,6 +80,7 @@ module.exports = {
         'sans': [ 'Inter', ...defaultTheme.fontFamily.sans ]
       }
     },
+    important: true
   },
   plugins: [],
 }

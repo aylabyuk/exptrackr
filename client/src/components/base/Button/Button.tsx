@@ -3,6 +3,7 @@ import React from 'react'
 
 export interface ButtonProps {
   type?: 'primary' | 'secondary' | 'ghost'
+  buttonType?: string
   className?: string
   onClick?: () => void
 }
