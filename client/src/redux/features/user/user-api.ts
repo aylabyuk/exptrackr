@@ -35,6 +35,7 @@ export const userApi = createApi({
           console.log(error)
         }
       },
+      invalidatesTags: ['User'],
     }),
   }),
 })

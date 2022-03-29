@@ -27,6 +27,9 @@ const options: swaggerJsDoc.Options = {
       {
         url: `http://localhost:${config.port}`,
       },
+      {
+        url: `http://localhost:80`,
+      },
     ],
     components: {
       securitySchemes: {
