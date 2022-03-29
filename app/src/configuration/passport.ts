@@ -8,12 +8,21 @@ import { Request } from 'express'
 const pathToKey = path.join(__dirname, '../../', 'id_rsa_pub.pem')
 const PUB_KEY = fs.readFileSync(pathToKey, 'utf8')
 
-var cookieExtractor = (req: Request) => {
-  let token = null
-  if (req && req.signedCookies && req.signedCookies.jwt) {
-    token = req.signedCookies['jwt']['token']
-  }
-  return token
+const cookieExtractor = (req: Request) => {
+  if (!req.headers.cookie) return ''
+
+  let result = ''
+  const rawCookies = req.headers.cookie.split('; ')
+
+  rawCookies.forEach((rawCookie) => {
+    const [key, value] = rawCookie.split('=')
+
+    if (key === 'jwt') {
+      result = value
+    }
+  })
+
+  return result
 }
 
 const options = {

@@ -46,7 +46,7 @@ const issueJWT = (user: any) => {
   })
 
   return {
-    token: 'Bearer ' + signedToken,
+    token: signedToken,
     expires: expiresIn,
   }
 }
