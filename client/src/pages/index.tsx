@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 
 import FullScreenModal from '../components/base/FullScreenModal/FullScreenModal'
 import LoginForm, {
@@ -16,16 +18,16 @@ import {
 } from '../redux/features/user/user-api'
 
 export const Onboarding: NextPage = () => {
+  const router = useRouter()
+
   const {
     data: me,
     isFetching,
     isLoading: isLoadingCurrentUser,
   } = useGetCurrentLoggedInUserQuery({})
 
-  const [
-    login,
-    { isLoading: isLoggingIn, isError: isLoginError, data: loginResult, reset },
-  ] = useLoginMutation()
+  const [login, { isLoading: isLoggingIn, isError: isLoginError, reset }] =
+    useLoginMutation()
 
   const [showLoginModal, setShowLoginModal] = useState(false)
 
@@ -47,6 +49,12 @@ export const Onboarding: NextPage = () => {
 
   const isLoading = isFetching || isLoadingCurrentUser || isLoggingIn
 
+  if (me) {
+    setTimeout(() => {
+      router.push('/home')
+    }, 1000)
+  }
+
   return (
     <div>
       <Head>
@@ -56,9 +64,12 @@ export const Onboarding: NextPage = () => {
       </Head>
 
       <div className="flex flex-col justify-center items-center p-5 pb-[200px] h-screen">
-        <span className="flex flex-col justify-center mb-16 text-titlex font-bold text-center text-violet-100">
+        <motion.span
+          className="flex flex-col justify-center mb-16 text-titlex font-bold text-center text-violet-100"
+          layoutId="brand"
+        >
           exptrackr
-        </span>
+        </motion.span>
 
         <Spinner show={isLoading} />
 

@@ -1,17 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { LoginFormValues } from '../../../components/forms/LoginForm/LoginForm'
 import constants from '../../../constants'
-
-interface User {
-  username: string
-  email: string
-  avatar: string
-}
-
-interface LoginResponse {
-  token: string
-  expires: string
-}
+import { LoginResponse, User } from '../../../models'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
