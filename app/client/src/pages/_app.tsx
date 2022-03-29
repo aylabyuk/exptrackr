@@ -7,13 +7,21 @@ import '../../styles/globals.css'
 import MainLayout from '../components/layouts/MainLayout/MainLayout'
 import RootContainer from '../components/layouts/RootContainer/RootContainer'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
+  const isOnboarding = router.pathname === '/'
+
   return (
     <Provider store={store}>
       <RootContainer>
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
+        {isOnboarding ? (
+          <div className="overflow-hidden relative grow max-w-screen-md bg-light-100">
+            <Component {...pageProps} />
+          </div>
+        ) : (
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        )}
       </RootContainer>
     </Provider>
   )

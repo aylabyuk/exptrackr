@@ -24,13 +24,7 @@ export const Onboarding: NextPage = () => {
 
   const [
     login,
-    {
-      isLoading: isLoggingIn,
-      isError: isLoginError,
-      data: loginResult,
-      error,
-      reset,
-    },
+    { isLoading: isLoggingIn, isError: isLoginError, data: loginResult, reset },
   ] = useLoginMutation()
 
   const [showLoginModal, setShowLoginModal] = useState(false)

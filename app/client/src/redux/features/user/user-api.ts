@@ -23,11 +23,18 @@ export const userApi = createApi({
       providesTags: ['User'],
     }),
     login: builder.mutation<LoginResponse, LoginFormValues>({
-      query: (data) => ({
+      query: (credentials) => ({
         url: `/login`,
         method: 'POST',
-        body: data,
+        body: credentials,
       }),
+      onQueryStarted: async (credentials, { queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled
+        } catch (error) {
+          console.log(error)
+        }
+      },
     }),
   }),
 })

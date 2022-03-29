@@ -3,12 +3,21 @@ import fs from 'fs'
 import path from 'path'
 import { User } from '../models/user'
 import { PassportStatic } from 'passport'
+import { Request } from 'express'
 
 const pathToKey = path.join(__dirname, '../../', 'id_rsa_pub.pem')
 const PUB_KEY = fs.readFileSync(pathToKey, 'utf8')
 
+var cookieExtractor = (req: Request) => {
+  let token = null
+  if (req && req.signedCookies && req.signedCookies.jwt) {
+    token = req.signedCookies['jwt']['token']
+  }
+  return token
+}
+
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
   secretOrKey: PUB_KEY,
   algorithms: ['RS256'],
 }

@@ -9,6 +9,8 @@ const reducers = combineReducers({
 const store = configureStore({
   reducer: reducers,
   devTools: true,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware),
 })
 
 type RootState = ReturnType<typeof store.getState>

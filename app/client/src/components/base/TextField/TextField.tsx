@@ -46,6 +46,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         )}
         onFocus={handleFocus}
         readOnly={readOnly}
+        autoComplete="current-password"
         {...register}
       />
       {endAdornment}

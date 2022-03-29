@@ -38,7 +38,7 @@ export const Modal: React.FC<ModalProps> = ({
           onClick={onRequestClose}
           className="flex absolute top-0 left-0 flex-col justify-center items-center w-full max-w-screen-md h-full bg-light-20/60 backdrop-blur-[2px]"
         >
-          <div className="flex flex-col gap-5 items-center p-6 w-auto max-w-[200px] h-auto bg-light-100 rounded-lg">
+          <div className="flex flex-col gap-5 items-center p-6 w-auto max-w-[300px] h-auto bg-light-100 rounded-lg">
             <div
               className={clsx(
                 'p-0 text-light-100 rounded-full',
