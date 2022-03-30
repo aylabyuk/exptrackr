@@ -1,4 +1,5 @@
 import React from 'react'
+import Navigation from '../../features/Navigation/Navigation'
 import Topbar from '../../features/Topbar/Topbar'
 
 export interface MainLayoutProps {
@@ -7,7 +8,7 @@ export interface MainLayoutProps {
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="overflow-hidden relative -z-0 grow max-w-screen-md h-screen bg-light-100">
+    <div className="overflow-hidden relative -z-0 grow max-w-screen-md h-screen bg-dark-25">
       <Topbar
         user={{
           username: 'thevinci',
@@ -16,6 +17,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         }}
       />
       {children}
+      <Navigation />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import Topbar, { TopbarProps } from './Topbar'
 
 const storyConfig: Meta = {
-  title: 'Base/Topbar',
+  title: 'Feature/Topbar',
   component: Topbar,
   parameters: {
     componentSubtitle: 'Topbar component for the main layout',

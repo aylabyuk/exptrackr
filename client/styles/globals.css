@@ -14,4 +14,17 @@
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  .navigation-bg {
+    background: rgb(252, 252, 252);
+    background: linear-gradient(
+      90deg,
+      rgba(252, 252, 252, 1) 0%,
+      rgba(252, 252, 252, 1) 39%,
+      rgba(252, 252, 252, 0) 39%,
+      rgba(252, 252, 252, 0) 62%,
+      rgba(252, 252, 252, 1) 62%,
+      rgba(252, 252, 252, 1) 100%
+    );
+  }
 }
