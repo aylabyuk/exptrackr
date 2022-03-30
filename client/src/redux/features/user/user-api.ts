@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { LoginFormValues } from '../../../components/forms/LoginForm/LoginForm'
 import constants from '../../../constants'
 import { LoginResponse, User } from '../../../models'
+import { setCurrentUser } from './user-reducer'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -11,6 +12,15 @@ export const userApi = createApi({
     getCurrentLoggedInUser: builder.query<User, unknown>({
       query: () => '/me',
       providesTags: ['User'],
+      onQueryStarted: async (__, { queryFulfilled, dispatch }) => {
+        try {
+          const { data } = await queryFulfilled
+          dispatch(setCurrentUser(data))
+        } catch (error) {
+          console.log(error)
+          dispatch(setCurrentUser())
+        }
+      },
     }),
     login: builder.mutation<LoginResponse, LoginFormValues>({
       query: (credentials) => ({
@@ -18,13 +28,6 @@ export const userApi = createApi({
         method: 'POST',
         body: credentials,
       }),
-      onQueryStarted: async (credentials, { queryFulfilled }) => {
-        try {
-          const { data } = await queryFulfilled
-        } catch (error) {
-          console.log(error)
-        }
-      },
       invalidatesTags: ['User'],
     }),
   }),
