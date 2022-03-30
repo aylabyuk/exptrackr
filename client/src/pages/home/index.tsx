@@ -1,20 +1,12 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import {
-  getCurrentLoggedInUser,
-  userApi,
-} from '../../redux/features/user/user-api'
 import { selectCurrentUser } from '../../redux/features/user/user-reducer'
 import { useAppSelector } from '../../redux/hooks'
-import { wrapper } from '../../redux/store'
 
-export interface HomeProps {
-  resolvedUrl: string
-  children: React.ReactNode
-}
+export interface HomeProps {}
 
-export const Home: NextPage<HomeProps> = ({ resolvedUrl }) => {
+export const Home: NextPage<HomeProps> = () => {
   const currentUser = useAppSelector(selectCurrentUser)
 
   console.log(currentUser)
@@ -28,17 +20,5 @@ export const Home: NextPage<HomeProps> = ({ resolvedUrl }) => {
     </div>
   )
 }
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async (ctx) => {
-    store.dispatch(getCurrentLoggedInUser.initiate({}))
-    await Promise.all(userApi.util.getRunningOperationPromises())
-
-    return {
-      props: {
-        resolvedUrl: ctx.resolvedUrl,
-      },
-    }
-  })
 
 export default Home

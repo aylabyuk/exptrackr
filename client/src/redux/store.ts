@@ -1,14 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
-import {
-  nextReduxCookieMiddleware,
-  wrapMakeStore,
-} from 'next-redux-cookie-wrapper'
 
 import userReducer from './features/user/user-reducer'
 import { userApi } from './features/user/user-api'
 
-const makeStore = wrapMakeStore(() =>
+const makeStore = () =>
   configureStore({
     reducer: {
       user: userReducer,
@@ -16,20 +12,8 @@ const makeStore = wrapMakeStore(() =>
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
-        .prepend(
-          nextReduxCookieMiddleware({
-            sameSite: true,
-            subtrees: [
-              {
-                subtree: 'jwt',
-              },
-            ],
-          }),
-        )
-        .concat(userApi.middleware),
-  }),
-)
+      getDefaultMiddleware().concat(userApi.middleware),
+  })
 
 export type AppStore = ReturnType<typeof makeStore>
 export type AppState = ReturnType<AppStore['getState']>

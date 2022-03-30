@@ -29,6 +29,7 @@ export const userApi = createApi({
           const { data } = await queryFulfilled
           dispatch(setCurrentUser(data))
         } catch (error) {
+          console.log(error)
           dispatch(removeCurrentUser())
         }
       },
