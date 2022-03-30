@@ -1,22 +1,44 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { createWrapper } from 'next-redux-wrapper'
+import {
+  nextReduxCookieMiddleware,
+  wrapMakeStore,
+} from 'next-redux-cookie-wrapper'
 
 import userReducer from './features/user/user-reducer'
 import { userApi } from './features/user/user-api'
 
-const reducers = combineReducers({
-  user: userReducer,
-  [userApi.reducerPath]: userApi.reducer,
-})
+const makeStore = wrapMakeStore(() =>
+  configureStore({
+    reducer: {
+      user: userReducer,
+      [userApi.reducerPath]: userApi.reducer,
+    },
+    devTools: true,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware()
+        .prepend(
+          nextReduxCookieMiddleware({
+            sameSite: true,
+            subtrees: [
+              {
+                subtree: 'jwt',
+              },
+            ],
+          }),
+        )
+        .concat(userApi.middleware),
+  }),
+)
 
-const store = configureStore({
-  reducer: reducers,
-  devTools: true,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware),
-})
+export type AppStore = ReturnType<typeof makeStore>
+export type AppState = ReturnType<AppStore['getState']>
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action
+>
+export type AppDispatch = AppStore['dispatch']
 
-type RootState = ReturnType<typeof store.getState>
-type AppDispatch = typeof store.dispatch
-
-export type { RootState, AppDispatch }
-export default store
+export const wrapper = createWrapper<AppStore>(makeStore)

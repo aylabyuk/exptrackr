@@ -18,9 +18,11 @@ const cookieExtractor = (req: Request) => {
     const [key, value] = rawCookie.split('=')
 
     if (key === 'jwt') {
-      result = value
+      result = JSON.parse(decodeURIComponent(value)).token
     }
   })
+
+  console.log('result', result)
 
   return result
 }
