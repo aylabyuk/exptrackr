@@ -9,7 +9,7 @@ export interface ModalProps {
   type?: 'error' | 'info' | 'success'
   message: string
   show?: boolean
-  onRequestClose: () => void
+  onRequestClose?: () => void
 }
 
 const icons = {

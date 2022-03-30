@@ -1,15 +1,15 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { selectCurrentUser } from '../../redux/features/user/user-reducer'
-import { useAppSelector } from '../../redux/hooks'
+import Modal from '../../components/base/Modal/Modal'
+import { useGetCurrentLoggedInUserQuery } from '../../redux/features/user/user-api'
 
 export interface HomeProps {}
 
 export const Home: NextPage<HomeProps> = () => {
-  const currentUser = useAppSelector(selectCurrentUser)
+  const { data: user, isLoading } = useGetCurrentLoggedInUserQuery({})
 
-  console.log(currentUser)
+  if (isLoading) return <Modal show message="loading" />
 
   return (
     <div className="">

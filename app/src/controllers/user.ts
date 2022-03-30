@@ -27,7 +27,7 @@ class UserController {
   async LoginUser(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await userService.LoginUser(req.body)
-      res.cookie('jwt', result.token, { httpOnly: true })
+      res.cookie('jwt', result.token)
       res.status(200).send(result)
     } catch (error: any) {
       next(error)
