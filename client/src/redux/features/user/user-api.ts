@@ -61,8 +61,4 @@ export const userApi = createApi({
   }),
 })
 
-export const {
-  useGetCurrentLoggedInUserQuery,
-  useLoginMutation,
-  endpoints: { getCurrentLoggedInUser },
-} = userApi
+export const { useGetCurrentLoggedInUserQuery, useLoginMutation } = userApi

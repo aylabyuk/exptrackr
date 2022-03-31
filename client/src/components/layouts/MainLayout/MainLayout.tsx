@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 import useScroll from 'react-use/lib/useScroll'
 import {
   hideModal,
@@ -19,7 +19,6 @@ export interface MainLayoutProps {
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  const { isLoading, isError } = useGetCurrentLoggedInUserQuery({})
   const openModals = useAppSelector(selectOpenModals)
   const dispatch = useAppDispatch()
 
@@ -35,28 +34,26 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     dispatch(hideModal(ModalEnum.Expense))
   }
 
-  if (isError || isLoading) return <div>{children}</div>
-
   return (
-    <>
-      <div
-        className={clsx(
-          'overflow-hidden relative -z-0 grow max-w-screen-md h-screen bg-light-100',
-          isFabOpen ? 'overflow-y-hidden' : 'overflow-y-scroll',
-        )}
-        ref={scrollRef}
-      >
-        <Topbar
-          user={{
-            username: 'thevinci',
-            avatar: 'https://i.pravatar.cc/100',
-            email: 'oriel.absin@gmail.com',
-          }}
-          isScrolling={y >= 30}
-        />
-        <div className="w-full">{children}</div>
-        <Navigation />
-      </div>
+    <div
+      className={clsx(
+        'overflow-hidden relative -z-0 grow max-w-screen-md h-screen bg-light-100',
+        isFabOpen || openModals?.length
+          ? 'overflow-y-hidden'
+          : 'overflow-y-scroll',
+      )}
+      ref={scrollRef}
+    >
+      <Topbar
+        user={{
+          username: 'thevinci',
+          avatar: 'https://i.pravatar.cc/100',
+          email: 'oriel.absin@gmail.com',
+        }}
+        isScrolling={y >= 30}
+      />
+      <div className="w-full">{children}</div>
+      <Navigation />
 
       <FullScreenModal
         show={!!openModals?.includes(ModalEnum.Income)}
@@ -73,7 +70,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       >
         Expense
       </FullScreenModal>
-    </>
+    </div>
   )
 }
 

@@ -16,6 +16,7 @@ import {
   useGetCurrentLoggedInUserQuery,
   useLoginMutation,
 } from '../redux/features/user/user-api'
+import Brand from '../components/base/Brand/Brand'
 
 export const Onboarding: NextPage = () => {
   const router = useRouter()
@@ -64,12 +65,7 @@ export const Onboarding: NextPage = () => {
       </Head>
 
       <div className="flex flex-col justify-center items-center p-5 pb-[200px] h-screen">
-        <motion.span
-          className="flex flex-col justify-center mb-16 text-titlex font-bold text-center text-violet-100"
-          layoutId="brand"
-        >
-          exptrackr
-        </motion.span>
+        <Brand />
 
         <Spinner show={isLoading} />
 

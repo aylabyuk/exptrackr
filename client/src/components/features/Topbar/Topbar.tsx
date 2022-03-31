@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 
 import { User } from '../../../models'
 import BellIcon from '../../vectors/BellIcon'
 import clsx from 'clsx'
+import Brand from '../../base/Brand/Brand'
 
 export interface TopbarProps {
   user: User
@@ -32,12 +32,7 @@ export const Topbar: React.FC<TopbarProps> = ({ user, isScrolling }) => {
           />
         </div>
 
-        <motion.span
-          className="flex flex-col justify-center text-title3 font-bold text-center text-violet-100"
-          layoutId="brand"
-        >
-          exptrackr
-        </motion.span>
+        <Brand className="mb-0 max-h-9 text-title3" />
         <button>
           <BellIcon className="!w-9 !h-9 text-violet-100" />
         </button>

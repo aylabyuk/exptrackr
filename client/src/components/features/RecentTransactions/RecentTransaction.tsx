@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import Button from '../../base/Button/Button'
 import CardTransaction, {
@@ -74,9 +75,11 @@ export const RecentTransaction: React.FC<RecentTransactionProps> = ({
         <span className="text-title3 font-semibold text-dark-25">
           Recent Transaction
         </span>
-        <button className="py-2 px-5 text-violet-100 bg-violet-20 rounded-[40px]">
-          See All
-        </button>
+        <Link href="/transaction" passHref>
+          <a className="py-2 px-5 text-violet-100 bg-violet-20 rounded-[40px] cursor-pointer">
+            See all
+          </a>
+        </Link>
       </div>
       <div className="flex flex-col gap-2 px-4">
         {transactions.map((transaction) => {

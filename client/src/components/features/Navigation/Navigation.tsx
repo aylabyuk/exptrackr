@@ -1,4 +1,6 @@
+import clsx from 'clsx'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import HomeIcon from '../../vectors/HomeIcon'
 import PieChartIcon from '../../vectors/PieChartIcon'
@@ -12,12 +14,25 @@ export interface NavigationProps {}
 export interface NavItemProps {
   title: string
   href: string
+  isActive?: boolean
 }
 
-const NavItem: React.FC<NavItemProps> = ({ children, title, href }) => {
+const NavItem: React.FC<NavItemProps> = ({
+  children,
+  title,
+  href,
+  isActive,
+}) => {
+  const router = useRouter()
+
   return (
     <Link passHref href={href}>
-      <a className="flex flex-col grow gap-2 items-center w-8 h-12">
+      <a
+        className={clsx(
+          'flex flex-col grow gap-2 items-center w-8 h-12',
+          router.pathname === href && 'text-violet-100',
+        )}
+      >
         <button>{children}</button>
         <span className="text-tiny font-medium">{title}</span>
       </a>
