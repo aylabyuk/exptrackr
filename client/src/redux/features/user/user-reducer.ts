@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
 
 import { User } from '../../../models'
+import deleteAllCookies from '../../../utils/deleteAllCookies'
 import { AppState } from '../../store'
+import { userApi } from './user-api'
 
 interface UserState {
   currentUser: User | null

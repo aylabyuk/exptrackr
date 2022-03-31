@@ -50,6 +50,8 @@ export const Onboarding: NextPage = () => {
 
   const isLoading = isFetching || isLoadingCurrentUser || isLoggingIn
 
+  console.log('me', me)
+
   if (me) {
     setTimeout(() => {
       router.push('/home')

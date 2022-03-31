@@ -1,17 +1,21 @@
 import React from 'react'
-import { selectCurrentUser } from '../../redux/features/user/user-reducer'
-import { useAppSelector } from '../../redux/hooks'
+import { useLogoutMutation } from '../../redux/features/user/user-api'
 
 export interface ProfilePageProps {
   children: React.ReactNode
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = ({ children }) => {
-  const currentUser = useAppSelector(selectCurrentUser)
+  const [logout] = useLogoutMutation()
 
   return (
-    <div className="">
-      <div>profile page</div>
+    <div className="flex flex-row justify-center p-4 w-full">
+      <button
+        onClick={logout}
+        className="p-3 w-full text-title2 text-center text-light-100 bg-blue-80 rounded-md active:ring-1"
+      >
+        Logout
+      </button>
     </div>
   )
 }

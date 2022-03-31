@@ -4,6 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { LoginFormValues } from '../../../components/forms/LoginForm/LoginForm'
 import constants from '../../../constants'
 import { LoginResponse, User } from '../../../models'
+import deleteAllCookies from '../../../utils/deleteAllCookies'
 import { removeCurrentUser, setCurrentUser } from './user-reducer'
 
 const getCookie = (name: string) => {
@@ -40,12 +41,14 @@ export const userApi = createApi({
     getCurrentLoggedInUser: builder.query<User, unknown>({
       query: () => '/me',
       providesTags: ['User'],
-      onQueryStarted: async (__, { queryFulfilled, dispatch }) => {
+      onQueryStarted: async (
+        __,
+        { queryFulfilled, dispatch, updateCachedData },
+      ) => {
         try {
           const { data } = await queryFulfilled
           dispatch(setCurrentUser(data))
         } catch (error) {
-          console.log(error)
           dispatch(removeCurrentUser())
         }
       },
@@ -58,7 +61,24 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+    logout: builder.mutation<any, any>({
+      queryFn: (__, { dispatch }) => {
+        deleteAllCookies()
+        dispatch(removeCurrentUser())
+
+        return {
+          data: {
+            succes: true,
+          },
+        }
+      },
+      invalidatesTags: ['User'],
+    }),
   }),
 })
 
-export const { useGetCurrentLoggedInUserQuery, useLoginMutation } = userApi
+export const {
+  useGetCurrentLoggedInUserQuery,
+  useLoginMutation,
+  useLogoutMutation,
+} = userApi

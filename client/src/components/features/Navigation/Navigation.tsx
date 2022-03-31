@@ -29,7 +29,7 @@ const NavItem: React.FC<NavItemProps> = ({
     <Link passHref href={href}>
       <a
         className={clsx(
-          'flex flex-col grow gap-2 items-center w-8 h-12',
+          'flex flex-col grow gap-2 items-center w-8 h-12 transition-all',
           router.pathname === href && 'text-violet-100',
         )}
       >
