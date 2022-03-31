@@ -1,17 +1,32 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React from 'react'
 import Modal from '../../components/base/Modal/Modal'
-import Tabs from '../../components/base/Tabs/Tabs'
 import RecentTransaction from '../../components/features/RecentTransactions/RecentTransaction'
 import { useGetCurrentLoggedInUserQuery } from '../../redux/features/user/user-api'
 
 export interface HomeProps {}
 
 export const Home: NextPage<HomeProps> = () => {
-  const { data: user, isLoading } = useGetCurrentLoggedInUserQuery({})
+  const router = useRouter()
+  const { isLoading, isError } = useGetCurrentLoggedInUserQuery({})
 
   if (isLoading) return <Modal show message="loading" />
+
+  if (isError) {
+    setTimeout(() => {
+      router.push('/')
+    }, 1000)
+
+    return (
+      <div className="flex fixed top-0 left-0 z-50 flex-col justify-center items-center w-screen max-w-screen-md h-screen bg-light-100">
+        <span className="p-8 text-title3 font-bold text-center text-blue-60">
+          You are not authenticated. Redirecting to login screen
+        </span>
+      </div>
+    )
+  }
 
   return (
     <div className="">

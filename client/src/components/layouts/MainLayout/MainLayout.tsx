@@ -7,6 +7,7 @@ import {
   selectFabMode,
   selectOpenModals,
 } from '../../../redux/features/ui/ui-reducer'
+import { useGetCurrentLoggedInUserQuery } from '../../../redux/features/user/user-api'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import FullScreenModal from '../../base/FullScreenModal/FullScreenModal'
 
@@ -18,6 +19,7 @@ export interface MainLayoutProps {
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  const { isLoading, isError } = useGetCurrentLoggedInUserQuery({})
   const openModals = useAppSelector(selectOpenModals)
   const dispatch = useAppDispatch()
 
@@ -32,6 +34,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const closeExpenseModal = () => {
     dispatch(hideModal(ModalEnum.Expense))
   }
+
+  if (isError || isLoading) return <div>{children}</div>
 
   return (
     <>
