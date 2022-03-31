@@ -51,7 +51,7 @@ const categories: ICategory[] = [
     name: 'Clothes',
     description:
       'New clothes, Shool clothes, Professional clothes, Uniform, Dry cleaning',
-    icon: 'shirt',
+    icon: 'fa-shirt',
   },
   {
     name: 'Home Supplies',
@@ -86,7 +86,7 @@ const categories: ICategory[] = [
     name: 'Services/Membership',
     description:
       'Yard care, House cleaning service, Meal delivery service, Gym, Magazines, Professional society dues, Music, TV streaming services, Amazon Prime, Costco, Software subscriptions, Identity theft',
-    icon: 'fa-dumbell',
+    icon: 'fa-dumbbell',
   },
   {
     name: 'Income',

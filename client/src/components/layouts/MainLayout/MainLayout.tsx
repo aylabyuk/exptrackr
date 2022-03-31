@@ -10,6 +10,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import FullScreenModal from '../../base/FullScreenModal/FullScreenModal'
 import Navigation from '../../features/Navigation/Navigation'
+import ExpenseForm from '../../forms/ExpenseForm/ExpenseForm'
+import IncomeForm from '../../forms/IncomeForm/IncomeForm'
 
 export const MainLayout: React.FC = ({ children }) => {
   const openModals = useAppSelector(selectOpenModals)
@@ -53,7 +55,7 @@ export const MainLayout: React.FC = ({ children }) => {
         onBackButtonClick={closeIncomeModal}
         className="text-light-100 bg-green-100"
       >
-        income
+        <IncomeForm />
       </FullScreenModal>
 
       <FullScreenModal
@@ -62,7 +64,7 @@ export const MainLayout: React.FC = ({ children }) => {
         onBackButtonClick={closeExpenseModal}
         className="text-light-100 bg-red-100"
       >
-        Expense
+        <ExpenseForm />
       </FullScreenModal>
 
       <FullScreenModal

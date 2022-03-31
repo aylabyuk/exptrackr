@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, type: 'tween' }}
           onClick={onRequestClose}
-          className="flex absolute top-0 left-0 flex-col justify-center items-center w-full max-w-screen-md h-full bg-light-20/60 backdrop-blur-[2px]"
+          className="flex absolute top-0 left-0 flex-col justify-center items-center w-full max-w-screen-md h-full bg-light-20/60 shadow-md backdrop-blur-[2px]"
         >
           <div className="flex flex-col gap-5 items-center p-6 w-auto max-w-[300px] h-auto bg-light-100 rounded-lg">
             <div

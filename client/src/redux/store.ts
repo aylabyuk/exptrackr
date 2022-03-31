@@ -4,6 +4,7 @@ import { createWrapper } from 'next-redux-wrapper'
 import userReducer from './features/user/user-reducer'
 import { userApi } from './features/user/user-api'
 import uiReducer from './features/ui/ui-reducer'
+import { categoryApi } from './features/category/category-api'
 
 const makeStore = () =>
   configureStore({
@@ -11,6 +12,7 @@ const makeStore = () =>
       ui: uiReducer,
       user: userReducer,
       [userApi.reducerPath]: userApi.reducer,
+      [categoryApi.reducerPath]: categoryApi.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
