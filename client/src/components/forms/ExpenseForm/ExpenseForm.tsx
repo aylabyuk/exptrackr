@@ -1,19 +1,51 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useGetAllCategoriesQuery } from '../../../redux/features/category/category-api'
-import camelize from '../../../utils/camelize'
+import { useSearchMerchantMutation } from '../../../redux/features/merchants/merchants-api'
 import BottomDrawer from '../../base/BottomDrawer/BottomDrawer'
 import Button from '../../base/Button/Button'
-import Option from '../../base/SelectField/Option/Option'
+
 import SelectField from '../../base/SelectField/SelectField'
 import TextField from '../../base/TextField/TextField'
-
-import twConfig from '../../../../tailwind.config'
+import Categories from './Categories/Categories'
+import Merchants from './Merchants/Merchants'
 
 export interface ExpenseFormProps {}
 
 export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
   const { data: categories, isSuccess } = useGetAllCategoriesQuery({})
+  const [filteredCat, setFilteredCat] = useState(categories)
+  const [updateSearch, { data: merchants }] = useSearchMerchantMutation()
+
+  const handleCategorySearch = useCallback(
+    (e) => {
+      if (!e.target.value) {
+        setFilteredCat(categories)
+        return
+      }
+
+      const filtered = categories?.filter((cat) => {
+        const search = e.target.value.toLowerCase()
+        return (
+          cat.name.toLowerCase().includes(search) ||
+          cat.description.toLocaleLowerCase().includes(search)
+        )
+      })
+
+      setFilteredCat(filtered)
+    },
+    [categories],
+  )
+
+  const handleMerchantSearch = useCallback(
+    async (e) => {
+      await updateSearch(e.target.value)
+    },
+    [updateSearch],
+  )
+
+  useEffect(() => {
+    setFilteredCat(categories)
+  }, [categories])
 
   return (
     <BottomDrawer show={isSuccess}>
@@ -21,44 +53,33 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
         <SelectField
           placeholder="Category"
           classes={{
-            selectionContainer: 'py-4',
+            selectionContainer: 'py-4 py-4 !h-screen pt-0',
           }}
+          useFontAwesome
+          onSearch={handleCategorySearch}
         >
-          {categories?.map((category) => {
-            const color = twConfig.theme.colors[category.color || '']
+          {Categories({ categories: filteredCat || [] })}
+        </SelectField>
 
-            return (
-              <Option
-                className="flex flex-row gap-2 justify-start items-center py-10 px-3"
-                key={category.id}
-                value={category}
-              >
-                <FontAwesomeIcon
-                  className={`p-[6px] !w-10 !h-10 rounded-lg`}
-                  color={color?.[100]}
-                  style={{ backgroundColor: color?.[20] }}
-                  icon={
-                    require('@fortawesome/free-solid-svg-icons')[
-                      camelize(category.icon)
-                    ]
-                  }
-                />
-                <div className="flex flex-col grow gap-1 max-w-[80%] text-left">
-                  <span className="text-title3 font-semibold">
-                    {category.name}
-                  </span>
-                  <span className="overflow-hidden text-tiny text-light-20 text-ellipsis whitespace-nowrap">
-                    {category.description}
-                  </span>
-                </div>
-              </Option>
-            )
-          })}
+        <SelectField
+          placeholder="Merchant"
+          classes={{
+            selectionContainer: 'py-4 !h-screen pt-0',
+          }}
+          onSearch={handleMerchantSearch}
+        >
+          {Merchants({ merchants: merchants || [] })}
         </SelectField>
 
         <TextField name="description" placeholder="Description" />
         <TextField name="wallet" placeholder="Wallet" />
         <Button className="mt-6">Continue</Button>
+        <a
+          href="https://clearbit.com"
+          className="w-full text-center text-dark-50"
+        >
+          Logos provided by Clearbit
+        </a>
       </div>
     </BottomDrawer>
   )

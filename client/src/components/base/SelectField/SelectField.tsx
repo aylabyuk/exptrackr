@@ -1,13 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import Image from 'next/image'
 import clsx from 'clsx'
 import { UseFormRegisterReturn } from 'react-hook-form'
-import { useOnClickOutside } from 'usehooks-ts/dist/cjs/useOnClickOutside'
+
 import ChevronIcon from '../../vectors/ChevronIcon'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import camelize from '../../../utils/camelize'
 
 import twConfig from '../../../../tailwind.config'
+import OptionModal from './OptionsModal/OptionsModal'
+import TextField from '../TextField/TextField'
+import SearchIcon from '../../vectors/SearchIcon'
 
 export interface SelectFieldProps {
   placeholder: string
@@ -18,6 +22,8 @@ export interface SelectFieldProps {
     selectionContainer?: string
   }
   register?: UseFormRegisterReturn
+  useFontAwesome?: boolean
+  onSearch?: (search: React.ChangeEvent) => void
 }
 
 export const SelectField: React.FC<SelectFieldProps> = ({
@@ -25,27 +31,20 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   classes,
   register,
+  useFontAwesome,
+  onSearch,
 }) => {
   const [value, setValue] = useState<any>('')
-  const ref = useRef(null)
-
   const [open, setOpen] = useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
+  const handleOpen = () => setOpen(true)
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleClose = () => setOpen(false)
 
   const handleSelect = (value: any) => {
     setValue(value)
-
     handleClose()
   }
-
-  useOnClickOutside(ref, handleClose)
 
   const color = twConfig.theme.colors[(value.color as string) || '']
 
@@ -56,7 +55,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         classes?.container,
       )}
     >
-      {value.icon && (
+      {value.icon && useFontAwesome ? (
         <FontAwesomeIcon
           className={`p-[6px] !w-[40px] !h-[40px] rounded-lg`}
           icon={
@@ -65,6 +64,16 @@ export const SelectField: React.FC<SelectFieldProps> = ({
           color={color?.[100]}
           style={{ backgroundColor: color?.[20] }}
         />
+      ) : (
+        value.icon && (
+          <Image
+            src={value.icon}
+            alt={value.name}
+            width={40}
+            height={40}
+            className={`p-[6px] !w-10 !h-10 rounded-lg`}
+          />
+        )
       )}
 
       <input
@@ -83,32 +92,26 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         <ChevronIcon />
       </motion.button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ top: '100vh' }}
-            animate={{ top: 0 }}
-            exit={{ top: '100vh' }}
-            transition={{ duration: 0.3, type: 'tween' }}
-            // eslint-disable-next-line tailwindcss/enforces-shorthand
-            className="fixed top-0 right-0 left-0 m-auto w-full max-w-screen-md h-screen backdrop-blur-[2px] "
-          >
-            <div
-              ref={ref}
-              className={clsx(
-                'flex overflow-hidden overflow-y-scroll absolute inset-0 flex-col my-auto mx-6 h-max max-h-[60vh] bg-light-80 rounded-3xl shadow-md',
-                classes?.selectionContainer,
-              )}
-            >
-              {React.Children.map(children, (child) =>
-                React.cloneElement(child as React.ReactElement, {
-                  onClick: handleSelect,
-                }),
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <OptionModal
+        onRequestClose={handleClose}
+        onSelect={handleSelect}
+        open={open}
+        containerClass={classes?.selectionContainer}
+      >
+        <div className="sticky inset-x-0 top-0 z-50 py-2 px-6 w-full bg-light-60">
+          <TextField
+            name="search"
+            placeholder="Search"
+            onChange={onSearch}
+            endAdornment={
+              <button>
+                <SearchIcon />
+              </button>
+            }
+          />
+        </div>
+        {children}
+      </OptionModal>
     </div>
   )
 }

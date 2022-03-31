@@ -5,6 +5,7 @@ import userReducer from './features/user/user-reducer'
 import { userApi } from './features/user/user-api'
 import uiReducer from './features/ui/ui-reducer'
 import { categoryApi } from './features/category/category-api'
+import { merchantApi } from './features/merchants/merchants-api'
 
 const makeStore = () =>
   configureStore({
@@ -13,10 +14,14 @@ const makeStore = () =>
       user: userReducer,
       [userApi.reducerPath]: userApi.reducer,
       [categoryApi.reducerPath]: categoryApi.reducer,
+      [merchantApi.reducerPath]: merchantApi.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(userApi.middleware),
+      getDefaultMiddleware()
+        .concat(userApi.middleware)
+        .concat(categoryApi.middleware)
+        .concat(merchantApi.middleware),
   })
 
 export type AppStore = ReturnType<typeof makeStore>

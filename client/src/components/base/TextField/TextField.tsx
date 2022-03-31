@@ -13,6 +13,7 @@ export interface TextFieldProps {
     input?: string
   }
   register?: UseFormRegisterReturn
+  onChange?: (event: React.ChangeEvent) => void
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -22,6 +23,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   endAdornment,
   register,
   classes,
+  onChange,
 }) => {
   const [readOnly, setReadOnly] = useState(true)
 
@@ -47,6 +49,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         onFocus={handleFocus}
         readOnly={readOnly}
         autoComplete="current-password"
+        onChange={onChange}
         {...register}
       />
       {endAdornment}

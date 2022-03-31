@@ -47,8 +47,6 @@ export const categoryApi = createApi({
           }
         })
 
-        console.log(transformed)
-
         return transformed
       },
     }),
