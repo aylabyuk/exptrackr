@@ -5,6 +5,7 @@ import { User } from '../../../models'
 import BellIcon from '../../vectors/BellIcon'
 import clsx from 'clsx'
 import Brand from '../../base/Brand/Brand'
+import Link from 'next/link'
 
 export interface TopbarProps {
   user: User
@@ -22,15 +23,17 @@ export const Topbar: React.FC<TopbarProps> = ({ user, isScrolling }) => {
           isScrolling && 'bg-light-100',
         )}
       >
-        <div className="flex flex-row justify-center items-center !w-10 !h-10 rounded-full ring-1 ring-violet-100 ring-offset-2">
-          <Image
-            src={user.avatar}
-            alt={user.username}
-            width={100}
-            height={100}
-            className="!w-10 !h-10 rounded-full"
-          />
-        </div>
+        <Link href="/profile" passHref>
+          <a className="flex flex-row justify-center items-center !w-10 !h-10 rounded-full ring-1 ring-violet-100 ring-offset-2">
+            <Image
+              src={user.avatar}
+              alt={user.username}
+              width={100}
+              height={100}
+              className="!w-10 !h-10 rounded-full"
+            />
+          </a>
+        </Link>
 
         <Brand className="mb-0 max-h-9 text-title3" />
         <button>

@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const user = useAppSelector(selectCurrentUser)
 
   const isOnboarding = router.pathname === '/'
+  const isHome = router.pathname === '/home'
 
   if (!user && !isOnboarding) {
     setTimeout(() => {
@@ -33,7 +34,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <Component {...pageProps} />
         </div>
       ) : (
-        <MainLayout>
+        <MainLayout showTopbar={isHome}>
           <Component {...pageProps} />
         </MainLayout>
       )}

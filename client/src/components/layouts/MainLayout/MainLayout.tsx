@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useRef } from 'react'
+import React, { ReactElement, useRef } from 'react'
 import useScroll from 'react-use/lib/useScroll'
 import {
   hideModal,
@@ -7,18 +7,13 @@ import {
   selectFabMode,
   selectOpenModals,
 } from '../../../redux/features/ui/ui-reducer'
-import { useGetCurrentLoggedInUserQuery } from '../../../redux/features/user/user-api'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import FullScreenModal from '../../base/FullScreenModal/FullScreenModal'
 
 import Navigation from '../../features/Navigation/Navigation'
 import Topbar from '../../features/Topbar/Topbar'
 
-export interface MainLayoutProps {
-  children: React.ReactNode
-}
-
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC = ({ children }) => {
   const openModals = useAppSelector(selectOpenModals)
   const dispatch = useAppDispatch()
 
@@ -44,15 +39,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       )}
       ref={scrollRef}
     >
-      <Topbar
-        user={{
-          username: 'thevinci',
-          avatar: 'https://i.pravatar.cc/100',
-          email: 'oriel.absin@gmail.com',
-        }}
-        isScrolling={y >= 30}
-      />
-      <div className="w-full">{children}</div>
+      <div className="w-full">
+        {React.cloneElement(children as ReactElement, { isScrolling: y >= 30 })}
+      </div>
+
       <Navigation />
 
       <FullScreenModal
