@@ -8,6 +8,8 @@ import Option from '../../base/SelectField/Option/Option'
 import SelectField from '../../base/SelectField/SelectField'
 import TextField from '../../base/TextField/TextField'
 
+import twConfig from '../../../../tailwind.config'
+
 export interface ExpenseFormProps {}
 
 export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
@@ -23,6 +25,8 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
           }}
         >
           {categories?.map((category) => {
+            const color = twConfig.theme.colors[category.color || '']
+
             return (
               <Option
                 className="flex flex-row gap-2 justify-start items-center py-10 px-3"
@@ -30,7 +34,9 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
                 value={category}
               >
                 <FontAwesomeIcon
-                  className="p-[6px] !w-10 !h-10 text-red-100 bg-red-20 rounded-lg"
+                  className={`p-[6px] !w-10 !h-10 rounded-lg`}
+                  color={color?.[100]}
+                  style={{ backgroundColor: color?.[20] }}
                   icon={
                     require('@fortawesome/free-solid-svg-icons')[
                       camelize(category.icon)

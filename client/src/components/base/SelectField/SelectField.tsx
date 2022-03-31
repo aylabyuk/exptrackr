@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import camelize from '../../../utils/camelize'
 
+import twConfig from '../../../../tailwind.config'
+
 export interface SelectFieldProps {
   placeholder: string
   children: React.ReactNode
@@ -45,19 +47,23 @@ export const SelectField: React.FC<SelectFieldProps> = ({
 
   useOnClickOutside(ref, handleClose)
 
+  const color = twConfig.theme.colors[(value.color as string) || '']
+
   return (
     <div
       className={clsx(
-        'flex flex-row px-5 w-full h-14 text-light-20 bg-light-100 rounded-2xl border-[1px] border-light-60',
+        'flex flex-row gap-2 items-center px-5 w-full h-14 text-light-20 bg-light-100 rounded-2xl border-[1px] border-light-60',
         classes?.container,
       )}
     >
       {value.icon && (
         <FontAwesomeIcon
-          className="p-3 !w-[32px] !h-[32px] text-red-100 bg-red-20 rounded-lg"
+          className={`p-[6px] !w-[40px] !h-[40px] rounded-lg`}
           icon={
             require('@fortawesome/free-solid-svg-icons')[camelize(value.icon)]
           }
+          color={color?.[100]}
+          style={{ backgroundColor: color?.[20] }}
         />
       )}
 
@@ -68,7 +74,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         )}
         placeholder={placeholder}
         readOnly
-        value={typeof value === 'object' ? value : value.category}
+        value={typeof value === 'object' ? value.name : value}
         onClick={handleOpen}
         {...register}
       />

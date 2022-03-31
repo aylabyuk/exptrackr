@@ -8,6 +8,7 @@ export interface Category {
   name: string
   description: string
   icon: string
+  color?: string
 }
 
 export const categoryApi = createApi({
@@ -30,6 +31,26 @@ export const categoryApi = createApi({
     getAllCategories: builder.query<Category[], unknown>({
       query: () => '/',
       providesTags: ['Categories'],
+      transformResponse: (response: Category[]) => {
+        const colors = ['violet', 'blue', 'red', 'green', 'yellow']
+        let colorIndex = 0
+        const transformed = response.map((category) => {
+          if (colorIndex !== 4) {
+            colorIndex += 1
+          } else {
+            colorIndex = 0
+          }
+
+          return {
+            ...category,
+            color: colors[colorIndex],
+          }
+        })
+
+        console.log(transformed)
+
+        return transformed
+      },
     }),
   }),
 })
