@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import CardTransaction, { CardTransactionProps } from './CardTransaction'
 
 const storyConfig: Meta = {
-  title: 'Base/CardTransaction',
+  title: 'Feature/CardTransaction',
   component: CardTransaction,
   parameters: {
     componentSubtitle: 'Card Transaction component',

@@ -24,7 +24,7 @@ export const FullScreenModal: React.FC<FullScreenModalProps> = ({
           animate={{ left: '0%' }}
           exit={{ left: '100%' }}
           transition={{ duration: 0.3, type: 'tween' }}
-          className="flex absolute top-0 flex-col w-full max-w-screen-md h-screen bg-light-100"
+          className="flex fixed top-0 flex-col w-full max-w-screen-md h-screen bg-light-100"
         >
           <div className="flex flex-row justify-between items-center p-4 h-16">
             <button onClick={onBackButtonClick}>

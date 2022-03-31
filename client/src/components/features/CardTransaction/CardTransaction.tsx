@@ -1,5 +1,8 @@
 import React from 'react'
+import format from 'date-fns/format'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import getAmountText from '../../../utils/getAmountText'
+import camelize from '../../../utils/camelize'
 
 export interface CardTransactionProps {
   icon: string
@@ -7,12 +10,6 @@ export interface CardTransactionProps {
   date: Date
   description: string
   amount: number
-}
-
-const camelize = (s: string) => s.replace(/-./g, (x) => x[1].toUpperCase())
-
-const getAmountText = (amount: number) => {
-  return (amount < 0 ? '- ' : ' ') + `$ ${Math.abs(amount).toFixed(2)}`
 }
 
 export const CardTransaction: React.FC<CardTransactionProps> = ({
@@ -40,8 +37,8 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({
         <span className="font-semibold text-red-100">
           {getAmountText(amount)}
         </span>
-        <span className="overflow-hidden text-[14px] font-medium text-light-20">
-          12:00 PM
+        <span className="overflow-hidden text-[14px] font-medium text-light-20 whitespace-nowrap">
+          {format(date, 'HH:mm a')}
         </span>
       </div>
     </div>
