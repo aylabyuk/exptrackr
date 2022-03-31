@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const user = useAppSelector(selectCurrentUser)
 
   const isOnboarding = router.pathname === '/'
-  const isHome = router.pathname === '/home'
 
   if (!user && !isOnboarding) {
     setTimeout(() => {
@@ -21,9 +20,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     }, 1000)
 
     return (
-      <div className="flex overflow-hidden -z-0 flex-col justify-center items-center w-screen max-w-screen-md h-screen bg-light-100">
-        <Brand />
-      </div>
+      <RootContainer>
+        <div className="flex overflow-hidden -z-0 flex-col justify-center items-center w-screen max-w-screen-md h-screen bg-light-100">
+          <Brand />
+        </div>
+      </RootContainer>
     )
   }
 
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <Component {...pageProps} />
         </div>
       ) : (
-        <MainLayout showTopbar={isHome}>
+        <MainLayout>
           <Component {...pageProps} />
         </MainLayout>
       )}

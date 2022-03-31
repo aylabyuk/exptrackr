@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import ArrowLeftIcon from '../../vectors/ArrowLeftIcon'
@@ -7,6 +8,7 @@ export interface FullScreenModalProps {
   show: boolean
   onBackButtonClick: () => void
   children: React.ReactNode
+  className?: string
 }
 
 export const FullScreenModal: React.FC<FullScreenModalProps> = ({
@@ -14,6 +16,7 @@ export const FullScreenModal: React.FC<FullScreenModalProps> = ({
   show,
   children,
   onBackButtonClick,
+  className,
 }) => {
   return (
     <AnimatePresence>
@@ -24,7 +27,10 @@ export const FullScreenModal: React.FC<FullScreenModalProps> = ({
           animate={{ left: 'auto' }}
           exit={{ left: '100%' }}
           transition={{ duration: 0.3, type: 'tween' }}
-          className="flex overflow-hidden absolute top-0 left-0 flex-col w-full max-w-screen-md h-screen bg-light-100"
+          className={clsx(
+            'flex overflow-hidden absolute top-0 left-0 flex-col w-full max-w-screen-md h-screen bg-light-100',
+            className,
+          )}
         >
           <div className="flex flex-row justify-between items-center p-4 h-16">
             <button onClick={onBackButtonClick}>

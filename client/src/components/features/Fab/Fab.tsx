@@ -34,6 +34,11 @@ export const Fab: React.FC<FabProps> = () => {
     dispatch(showModal(ModalEnum.Expense))
   }, [dispatch])
 
+  const openTransferModal = useCallback(() => {
+    dispatch(setFabMode(false))
+    dispatch(showModal(ModalEnum.Transfer))
+  }, [dispatch])
+
   const commonStyle = `flex absolute flex-row justify-center items-center w-14 h-14 rounded-full active:ring-1 pointer-events-auto
     rounded-full active:ring-1 pointer-events-auto
     rounded-full active:ring-1 pointer-events-auto
@@ -59,6 +64,7 @@ export const Fab: React.FC<FabProps> = () => {
           animate={{ bottom: isOpen ? 125 : 0 }}
           transition={{ type: 'tween', duration: 0.2 }}
           className={clsx(commonStyle, 'bg-blue-100')}
+          onClick={openTransferModal}
         >
           <CurrencyExchangeIcon className="!w-7 !h-7 text-light-100" />
         </motion.button>

@@ -9,9 +9,7 @@ import {
 } from '../../../redux/features/ui/ui-reducer'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import FullScreenModal from '../../base/FullScreenModal/FullScreenModal'
-
 import Navigation from '../../features/Navigation/Navigation'
-import Topbar from '../../features/Topbar/Topbar'
 
 export const MainLayout: React.FC = ({ children }) => {
   const openModals = useAppSelector(selectOpenModals)
@@ -29,6 +27,10 @@ export const MainLayout: React.FC = ({ children }) => {
     dispatch(hideModal(ModalEnum.Expense))
   }
 
+  const closeTransferModal = () => {
+    dispatch(hideModal(ModalEnum.Transfer))
+  }
+
   return (
     <div
       className={clsx(
@@ -39,7 +41,7 @@ export const MainLayout: React.FC = ({ children }) => {
       )}
       ref={scrollRef}
     >
-      <div className="w-full">
+      <div className="mb-20 w-full">
         {React.cloneElement(children as ReactElement, { isScrolling: y >= 30 })}
       </div>
 
@@ -49,6 +51,7 @@ export const MainLayout: React.FC = ({ children }) => {
         show={!!openModals?.includes(ModalEnum.Income)}
         title="Income"
         onBackButtonClick={closeIncomeModal}
+        className="text-light-100 bg-green-100"
       >
         income
       </FullScreenModal>
@@ -57,8 +60,18 @@ export const MainLayout: React.FC = ({ children }) => {
         show={!!openModals?.includes(ModalEnum.Expense)}
         title="Expense"
         onBackButtonClick={closeExpenseModal}
+        className="text-light-100 bg-red-100"
       >
         Expense
+      </FullScreenModal>
+
+      <FullScreenModal
+        show={!!openModals?.includes(ModalEnum.Transfer)}
+        title="Transfer"
+        onBackButtonClick={closeTransferModal}
+        className="text-light-100 bg-blue-100"
+      >
+        Not Implemented :(
       </FullScreenModal>
     </div>
   )
