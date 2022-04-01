@@ -20,6 +20,26 @@ class RecordService {
 
     return records
   }
+
+  async GetFilteredRecords(
+    accountIds: mongoose.Types.ObjectId[],
+    categories: mongoose.Types.ObjectId[],
+    search: string,
+  ) {
+    const records = Record.find({
+      accountId: {
+        $in: accountIds.map((id) => new mongoose.Types.ObjectId(id)),
+      },
+      categoryId: {
+        $in: categories.map((id) => new mongoose.Types.ObjectId(id)),
+      },
+      description: {
+        $regex: search || '',
+      },
+    })
+
+    return records
+  }
 }
 
 export default RecordService

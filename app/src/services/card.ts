@@ -9,10 +9,10 @@ class CardService {
       return null
     }
 
-    const account = await Account.find({
+    const accounts = await Account.find({
       ownerId: user._id,
     })
-    return account
+    return accounts
   }
 
   async GetCardById(cardId: string, username: string) {

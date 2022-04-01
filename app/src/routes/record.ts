@@ -58,6 +58,36 @@ router.post(
   recordController.CreateIncomeRecord,
 )
 
+/**
+ * @swagger
+ * /api/record/recent:
+ *  get:
+ *    summary: Query the most recent transactions
+ *    tags:
+ *      - Records
+ *    description: Query the most recent transactions
+ *    responses:
+ *      200:
+ *        description: OK
+ *      401:
+ *        description: Unauthorized
+ */
 router.get('/recent', recordController.GetRecentTransactions)
+
+/**
+ * @swagger
+ * /api/record:
+ *  get:
+ *    summary: Query transaction records created by user
+ *    tags:
+ *      - Records
+ *    description: Get all record information of the user, or use a query param to filter records
+ *    responses:
+ *      200:
+ *        description: OK
+ *      401:
+ *        description: Unauthorized
+ */
+router.get('/', recordController.GetFilteredRecords)
 
 export { router as recordRouter }

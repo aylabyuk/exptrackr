@@ -15,6 +15,21 @@ class CategoryService {
     const incomeCategory = await Category.findOne({ name: 'Income' })
     return incomeCategory
   }
+
+  async SearchCategoriesByName(categoryNames?: string[]) {
+    if (categoryNames && categoryNames.length) {
+      const categories = await Category.find({
+        name: {
+          $in: categoryNames,
+        },
+      })
+
+      return categories
+    }
+
+    const categories = await Category.find({})
+    return categories
+  }
 }
 
 export default CategoryService

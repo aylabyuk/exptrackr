@@ -19,7 +19,7 @@ import { cardRouter } from './card'
  *      email:
  *        type: string
  *        description: Email address of the user
- *        example: "awesome@gmail.com"
+ *        example: "oriel.absin@gmail.com"
  *      password:
  *        type: string
  *        description: Password of the user
@@ -34,7 +34,7 @@ import { cardRouter } from './card'
  *      email:
  *        type: string
  *        description: Email address of the user
- *        example: "awesome@gmail.com"
+ *        example: "oriel.absin@gmail.com"
  *      password:
  *        type: string
  *        description: Password of the user
@@ -129,7 +129,7 @@ import { cardRouter } from './card'
  *      email:
  *        type: string
  *        description: Email address of the user
- *        example: "awesome@gmail.com"
+ *        example: "oriel.absin@gmail.com"
  *      avatar:
  *        type: string
  *        description: Url of the user's display picture

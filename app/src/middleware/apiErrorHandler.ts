@@ -18,6 +18,7 @@ const apiErrorHandler = (
     return
   }
 
+  console.log(err)
   res.status(500).json('something went wrong')
 }
 

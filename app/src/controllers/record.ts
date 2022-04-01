@@ -1,17 +1,20 @@
 import { Request, Response, NextFunction } from 'express'
+
 import ApiError from '../middleware/ApiError'
 import CardService from '../services/card'
 import CategoryService from '../services/category'
 import RecordService from '../services/record'
+import UserService from '../services/user'
 
 const recordService = new RecordService()
 const cardService = new CardService()
 const categoryService = new CategoryService()
+const userService = new UserService()
 
 class RecordController {
   async CreateExpenseRecord(req: Request, res: Response, next: NextFunction) {
     try {
-      const username = req.user.username
+      const { username } = req.user
 
       // verify if owner owns the account
       const card = await cardService.GetCardById(req.body.cardId, username)
@@ -51,7 +54,7 @@ class RecordController {
 
   async CreateIncomeRecord(req: Request, res: Response, next: NextFunction) {
     try {
-      const username = req.user.username
+      const { username } = req.user
 
       // verify if owner owns the account
       const card = await cardService.GetCardById(req.body.cardId, username)
@@ -107,6 +110,38 @@ class RecordController {
       res.status(200).send(result)
     } catch (error) {
       console.log(error)
+      next(error)
+    }
+  }
+
+  async GetFilteredRecords(req: Request, res: Response, next: NextFunction) {
+    const { categories, search } = req.query
+    const { username } = req.user
+
+    // get all account cards for the user
+    const cards = await cardService.GetCards(username)
+    const accountIds = cards?.map((card) => card._id)
+
+    if (!accountIds?.length) {
+      next(ApiError.notFound('No accounts found for user'))
+      return
+    }
+
+    // get all searched categories
+    const categoriesResult = await categoryService.SearchCategoriesByName(
+      categories as string[],
+    )
+    const categoryIds = categoriesResult.map((cat) => cat._id)
+
+    try {
+      const transactions = await recordService.GetFilteredRecords(
+        accountIds,
+        categoryIds,
+        search as string,
+      )
+
+      res.status(200).send(transactions)
+    } catch (error) {
       next(error)
     }
   }
