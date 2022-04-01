@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import MainLayout, { MainLayoutProps } from './MainLayout'
+import MainLayout from './MainLayout'
 
 const storyConfig: Meta = {
   title: 'Layout/MainLayout',
@@ -9,13 +9,13 @@ const storyConfig: Meta = {
   },
 }
 
-const Template: Story<MainLayoutProps> = (args) => <MainLayout {...args} />
+const Template: Story = (args) => <MainLayout {...args} />
 
 const MainLayoutExample = Template.bind({})
 
 MainLayoutExample.args = {
   children: 'content',
-} as MainLayoutProps
+}
 
 export default storyConfig
 export { MainLayoutExample }

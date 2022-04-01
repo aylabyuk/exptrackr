@@ -31,6 +31,7 @@ export interface SelectFieldProps {
   register?: UseFormRegisterReturn
   iconType?: IconType
   onSearch?: (search: React.ChangeEvent) => void
+  onChange?: (value: any) => void
 }
 
 const getIconComponent = (iconType: IconType, value: any) => {
@@ -74,6 +75,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   register,
   iconType = IconType.Image,
   onSearch,
+  onChange,
 }) => {
   const [value, setValue] = useState<any>('')
   const [open, setOpen] = useState(false)
@@ -84,6 +86,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
 
   const handleSelect = (value: any) => {
     setValue(value)
+    onChange?.call(null, value)
     handleClose()
   }
 
@@ -105,7 +108,6 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         readOnly
         value={typeof value === 'object' ? value.name : value}
         onClick={handleOpen}
-        onFocus={handleOpen}
         {...register}
       />
 
