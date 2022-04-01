@@ -1,5 +1,5 @@
 import { Account } from '../models/account'
-import { IUser, User } from '../models/user'
+import { User } from '../models/user'
 
 class CardService {
   async GetCards(username: string) {
@@ -22,8 +22,23 @@ class CardService {
       return null
     }
 
-    const card = await Account.find({ ownerId: user.id })
+    const card = await Account.findById(cardId)
+
+    if (card?.ownerId.toString() !== user._id.toString()) {
+      return null
+    }
+
     return card
+  }
+
+  async DecreaseCardAmount(cardId: string, amount: number) {
+    const result = await Account.findByIdAndUpdate(cardId, {
+      $inc: {
+        balance: -Math.abs(amount),
+      },
+    })
+
+    return result
   }
 }
 

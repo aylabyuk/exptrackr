@@ -7,6 +7,7 @@ import uiReducer from './features/ui/ui-reducer'
 import { categoryApi } from './features/category/category-api'
 import { merchantApi } from './features/merchants/merchants-api'
 import { cardApi } from './features/card/card-api'
+import { recordApi } from './features/record/record-api'
 
 const makeStore = () =>
   configureStore({
@@ -17,6 +18,7 @@ const makeStore = () =>
       [categoryApi.reducerPath]: categoryApi.reducer,
       [merchantApi.reducerPath]: merchantApi.reducer,
       [cardApi.reducerPath]: cardApi.reducer,
+      [recordApi.reducerPath]: recordApi.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
@@ -24,7 +26,8 @@ const makeStore = () =>
         .concat(userApi.middleware)
         .concat(categoryApi.middleware)
         .concat(merchantApi.middleware)
-        .concat(cardApi.middleware),
+        .concat(cardApi.middleware)
+        .concat(recordApi.middleware),
   })
 
 export type AppStore = ReturnType<typeof makeStore>

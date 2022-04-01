@@ -11,22 +11,31 @@ class RecordController {
   async CreateExpenseRecord(req: Request, res: Response, next: NextFunction) {
     try {
       const username = req.user.username
-      const card = cardService.GetCardById(req.body.cardId, username)
 
+      // verify if owner owns the account
+      const card = await cardService.GetCardById(req.body.cardId, username)
       if (!card) {
         next(ApiError.badRequest('Account does not exist'))
         return
       }
 
-      const category = categoryService.GetCategoryById(req.body.categoryId)
-
+      // verify if the category exist
+      const category = await categoryService.GetCategoryById(
+        req.body.categoryId,
+      )
       if (!category) {
         next(ApiError.badRequest('Category does not exist'))
         return
       }
 
+      // decrease card balance
+      await cardService.DecreaseCardAmount(req.body.cardId, req.body.amount)
+
+      // record the transaction
       await recordService.CreateRecord({
         ...req.body,
+        accountId: card._id,
+        amount: -Math.abs(req.body.amount),
         date: new Date(),
         type: 'expense',
       })

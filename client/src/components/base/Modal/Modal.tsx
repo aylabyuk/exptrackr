@@ -49,7 +49,7 @@ export const Modal: React.FC<ModalProps> = ({
             >
               <Icon className="w-12 h-12" />
             </div>
-            <span className="text-body3 font-medium text-center">
+            <span className="text-body3 font-medium text-center text-dark-25">
               {message}
             </span>
           </div>

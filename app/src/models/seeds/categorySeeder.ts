@@ -8,11 +8,6 @@ const categories: ICategory[] = [
     icon: 'fa-house',
   },
   {
-    name: 'Consumer Debt',
-    description: 'Interest payment, Additional payments beyond minimum due',
-    icon: 'fa-money-bill-transfer',
-  },
-  {
     name: 'Transporation',
     description:
       'Auto loan, Registration, Gas, Road/Bridge toll, Auto maintenance, Public transportation, Parking, Roadside assistance (onstar), Other forms of transportation and associated maintenance (bike, motorcycle, recreation vehicles)',
@@ -29,12 +24,6 @@ const categories: ICategory[] = [
     description:
       'Federal income, State, Property, Business, Accountant fees, Filing fees',
     icon: 'fa-paw',
-  },
-  {
-    name: 'Taxes',
-    description:
-      'Federal income, State, Property, Business, Accountant fees, Filing fees',
-    icon: 'fa-money-check-dollar',
   },
   {
     name: 'Giving',
@@ -85,26 +74,14 @@ const categories: ICategory[] = [
   {
     name: 'Services/Membership',
     description:
-      'Yard care, House cleaning service, Meal delivery service, Gym, Magazines, Professional society dues, Music, TV streaming services, Amazon Prime, Costco, Software subscriptions, Identity theft',
+      'Yard care, House cleaning service, Meal delivery service, Gym, Magazines, Professional society dues, Music, TV streaming services, Amazon Prime, Costco, Software subscriptions, Identity theft, Netflix, DisneyPlus',
     icon: 'fa-dumbbell',
-  },
-  {
-    name: 'Income',
-    description:
-      'W2 Income, Spousal support, Child support, Social security benefits, Side hustle income, Investment income, Bonuses, Reimbursed job expenses, Tips, Gifts',
-    icon: 'fa-briefcase',
   },
   {
     name: 'Utilities',
     description:
       'Electric, Gas, Phone, Cable, Internet, Water, Sewer, Trash, Recycling, Yard waste',
     icon: 'fa-bolt',
-  },
-  {
-    name: 'Savings',
-    description:
-      'Emergency fund, Investing fund, Home fund, College savings, Fun savings, Gift savings',
-    icon: 'fa-piggy-bank',
   },
   {
     name: 'Miscellaneous',
