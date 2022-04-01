@@ -12,6 +12,12 @@ export interface ExpenseRequestPayload {
   description: string
 }
 
+export interface IncomeRequestPayload {
+  amount: number
+  cardId: string
+  description: string
+}
+
 export const recordApi = createApi({
   reducerPath: 'recordApi',
   baseQuery: getBaseQuery('/record'),
@@ -29,8 +35,19 @@ export const recordApi = createApi({
       }),
       invalidatesTags: ['Records'],
     }),
+    recordIncome: builder.mutation<unknown, IncomeRequestPayload>({
+      query: (income) => ({
+        url: `/income`,
+        method: 'POST',
+        body: income,
+      }),
+      invalidatesTags: ['Records'],
+    }),
   }),
 })
 
-export const { useRecordExpenseMutation, useGetRecentTransactionsQuery } =
-  recordApi
+export const {
+  useRecordExpenseMutation,
+  useRecordIncomeMutation,
+  useGetRecentTransactionsQuery,
+} = recordApi

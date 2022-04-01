@@ -54,7 +54,7 @@ router.post(
  */
 router.post(
   '/income',
-  validate(validator.createRecordValidator),
+  validate(validator.createRecordvalidatorIncome),
   recordController.CreateIncomeRecord,
 )
 

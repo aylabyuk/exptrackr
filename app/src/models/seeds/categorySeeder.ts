@@ -89,6 +89,11 @@ const categories: ICategory[] = [
       "Anything that doesn't quite fit into any category, Unusual non-recurring expenses",
     icon: 'fa-thumbtack',
   },
+  {
+    name: 'Income',
+    description: 'Income',
+    icon: 'fa-money-bill-trend-up',
+  },
 ]
 
 const categorySeeder = () =>

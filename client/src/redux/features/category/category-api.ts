@@ -19,10 +19,10 @@ export const categoryApi = createApi({
       query: () => '/',
       providesTags: ['Categories'],
       transformResponse: (response: Category[]) => {
-        const colors = ['violet', 'blue', 'red', 'green', 'yellow']
+        const colors = ['violet', 'blue', 'red', 'yellow']
         let colorIndex = 0
         const transformed = response.map((category) => {
-          if (colorIndex !== 4) {
+          if (colorIndex !== 3) {
             colorIndex += 1
           } else {
             colorIndex = 0

@@ -37,7 +37,7 @@ export const MainLayout: React.FC = ({ children }) => {
     <div className="overflow-hidden relative -z-0 grow max-w-screen-md h-screen max-h-screen bg-light-100">
       <div
         className={clsx(
-          'mb-20 w-full h-screen',
+          'pb-24 mb-20 w-full h-screen',
           isFabOpen || openModals?.length
             ? 'overflow-y-hidden'
             : 'overflow-y-scroll',

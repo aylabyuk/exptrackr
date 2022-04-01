@@ -45,14 +45,12 @@ const recordSchema = new Schema<IRecord>(
       type: Schema.Types.ObjectId,
       ref: 'Category',
       index: true,
-      required: true,
     },
     merchantWebsite: {
       type: String,
     },
     merchantName: {
       type: String,
-      required: true,
     },
     merchantLogo: {
       type: String,

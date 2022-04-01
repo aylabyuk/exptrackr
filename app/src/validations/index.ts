@@ -26,6 +26,13 @@ const Validators = {
       description: Joi.string().required(),
     }),
   },
+  createRecordvalidatorIncome: {
+    body: Joi.object({
+      amount: Joi.number().required(),
+      cardId: Joi.string().required(),
+      description: Joi.string().required(),
+    }),
+  },
 }
 
 export default Validators
