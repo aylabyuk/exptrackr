@@ -4,6 +4,7 @@ import authCheck from '../middleware/authCheck'
 import { userRouter } from './user'
 import { categoryRouter } from './category'
 import { recordRouter } from './record'
+import { cardRouter } from './card'
 
 /**
  * @swagger
@@ -57,6 +58,36 @@ import { recordRouter } from './record'
  *        type: string
  *        description: Fontawesome icon of the category
  *        example: "fa-house"
+ *  Card:
+ *    type: object
+ *    properties:
+ *      id: string
+ *      description: Unique identifier of card
+ *      example: "62407aa5191a8535ea977979"
+ *    nameOnCard:
+ *      id: string
+ *      description: Name written on the card
+ *      example: "Oriel Vinci Absin"
+ *    cardType:
+ *      id: string
+ *      description: Type of card
+ *      example: Visa
+ *    maskedNumber:
+ *      id: string
+ *      description: Onfuscated card number
+ *      example: "4111 11XX XXXX XXXX 1111"
+ *    description:
+ *      id: string
+ *      description: Description of the card, set by the user
+ *      example: "My personal card for personal stuff"
+ *    balance:
+ *      id: number
+ *      description: The remaining amount on the card
+ *      example: 22000
+ *    ownerId:
+ *      id: string
+ *      description: The identification number of the user of the card
+ *      example: "62407aa5191a8535ea977979"
  *  Record:
  *    type: object
  *    properties:
@@ -131,6 +162,10 @@ import { recordRouter } from './record'
  *        name: "Housing"
  *        description: "Mortgage, Rent, Home insurance, Property tax, HOA, Home Maintenance, Home Improvement, Home Security"
  *        icon: "fa-house"
+ *  CardsResponse:
+ *    type: array
+ *    items:
+ *      type: Card
  */
 
 /**
@@ -139,6 +174,7 @@ import { recordRouter } from './record'
  *  - name: Users
  *  - name: Categories
  *  - name: Records
+ *  - name: Cards
  */
 
 const router = Router()
@@ -146,5 +182,6 @@ const router = Router()
 router.use('/user', userRouter)
 router.use('/categories', [authCheck], categoryRouter)
 router.use('/record', [authCheck], recordRouter)
+router.use('/cards', [authCheck], cardRouter)
 
 export default router
