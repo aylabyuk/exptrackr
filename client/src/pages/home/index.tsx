@@ -31,10 +31,15 @@ export const Home: NextPage<HomeProps> = ({ isScrolling }) => {
         }}
         isScrolling={isScrolling}
       />
+      {/* placeholder for graph report */}
+      <div className="py-7 px-4 h-[200px]">
+        <div className="w-full h-full bg-light-100 rounded-xl" />
+      </div>
       <Tabs
         onChange={handleChangeTab}
         tabs={['Today', 'Week', 'Month', 'Year']}
         activeIndex={activeIndex}
+        className="px-4"
       />
       <RecentTransaction />
     </>

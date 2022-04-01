@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import FullScreenModal from '../../base/FullScreenModal/FullScreenModal'
 import Navigation from '../../features/Navigation/Navigation'
 import ExpenseTransactionDrawer from '../../forms/ExpenseForm/ExpenseTransactionDrawer'
-import IncomeForm from '../../forms/IncomeForm/IncomeForm'
+import IncomeTransactionDrawer from '../../forms/IncomeForm/IncomeTransactionDrawer'
 
 export const MainLayout: React.FC = ({ children }) => {
   const openModals = useAppSelector(selectOpenModals)
@@ -55,7 +55,7 @@ export const MainLayout: React.FC = ({ children }) => {
         onBackButtonClick={closeIncomeModal}
         className="text-light-100 bg-green-100"
       >
-        <IncomeForm />
+        <IncomeTransactionDrawer />
       </FullScreenModal>
 
       <FullScreenModal
