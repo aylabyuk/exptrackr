@@ -79,11 +79,25 @@ export const recordApi = createApi({
       invalidatesTags: ['Records', 'SearchedRecords'],
     }),
     search: builder.query<FilteredRecordResponse[], SearchRecordsPayload>({
-      query: (payload) => ({
-        url: '/',
-        method: 'GET',
-        params: payload,
-      }),
+      query: (payload) => {
+        const params = new URLSearchParams()
+
+        if (payload.search) {
+          params.append('search', payload.search)
+        }
+
+        if (payload.categories?.length) {
+          payload.categories.forEach((cat) => {
+            params.append('categories', cat)
+          })
+        }
+
+        return {
+          url: '/',
+          method: 'GET',
+          params,
+        }
+      },
       providesTags: ['SearchedRecords'],
       transformResponse: (returnValue: any) => {
         const transformed: FilteredRecordResponse[] = returnValue.map(
