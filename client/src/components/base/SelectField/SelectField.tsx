@@ -105,6 +105,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         readOnly
         value={typeof value === 'object' ? value.name : value}
         onClick={handleOpen}
+        onFocus={handleOpen}
         {...register}
       />
 

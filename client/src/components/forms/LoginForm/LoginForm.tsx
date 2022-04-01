@@ -15,7 +15,7 @@ export interface LoginFormProps {
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit, formState } = useForm<LoginFormValues>()
+  const { register, handleSubmit } = useForm<LoginFormValues>()
   const [showPassword, setShowPassword] = useState(false)
 
   const toggleShowPassword = () => {
