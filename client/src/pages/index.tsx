@@ -66,9 +66,7 @@ export const Onboarding: NextPage = () => {
 
       <div className="flex flex-col justify-center items-center p-5 pb-[200px] h-screen">
         <Brand />
-
         <Spinner show={isLoading} />
-
         <OnboardingActions onLogin={handleLogin} show={!me && !isLoading} />
       </div>
 

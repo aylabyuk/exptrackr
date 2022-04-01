@@ -18,12 +18,47 @@ export interface IncomeRequestPayload {
   description: string
 }
 
+export interface CategoryResponse {
+  _id: string
+  name: string
+  description: string
+  icon: string
+}
+
+export interface FilteredRecordResponse {
+  _id: string
+  type: string
+  date: Date
+  description: string
+  amount: number
+  accountId: string
+  category: CategoryResponse
+  createdAt: Date
+  updatedAt: Date
+  merchantWebsite: string
+  merchantName: string
+  merchantLogo: string
+}
+
+export interface RecentRecordResponse {
+  icon: string
+  description: string
+  category: string
+  amount: number
+  date: Date
+}
+
+export interface SearchRecordsPayload {
+  search?: string
+  categories?: string[]
+}
+
 export const recordApi = createApi({
   reducerPath: 'recordApi',
   baseQuery: getBaseQuery('/record'),
-  tagTypes: ['Records'],
+  tagTypes: ['Records', 'SearchedRecords'],
   endpoints: (builder) => ({
-    getRecentTransactions: builder.query<any, any>({
+    getRecentTransactions: builder.query<RecentRecordResponse[], unknown>({
       query: () => '/recent',
       providesTags: ['Records'],
     }),
@@ -33,7 +68,7 @@ export const recordApi = createApi({
         method: 'POST',
         body: expense,
       }),
-      invalidatesTags: ['Records'],
+      invalidatesTags: ['Records', 'SearchedRecords'],
     }),
     recordIncome: builder.mutation<unknown, IncomeRequestPayload>({
       query: (income) => ({
@@ -41,7 +76,27 @@ export const recordApi = createApi({
         method: 'POST',
         body: income,
       }),
-      invalidatesTags: ['Records'],
+      invalidatesTags: ['Records', 'SearchedRecords'],
+    }),
+    search: builder.query<FilteredRecordResponse[], SearchRecordsPayload>({
+      query: (payload) => ({
+        url: '/',
+        method: 'GET',
+        params: payload,
+      }),
+      providesTags: ['SearchedRecords'],
+      transformResponse: (returnValue: any) => {
+        const transformed: FilteredRecordResponse[] = returnValue.map(
+          (value: any) => {
+            return {
+              ...value,
+              category: value.categoryId,
+            }
+          },
+        )
+
+        return transformed
+      },
     }),
   }),
 })
@@ -50,4 +105,5 @@ export const {
   useRecordExpenseMutation,
   useRecordIncomeMutation,
   useGetRecentTransactionsQuery,
+  useSearchQuery,
 } = recordApi

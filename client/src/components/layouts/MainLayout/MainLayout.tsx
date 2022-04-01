@@ -71,9 +71,10 @@ export const MainLayout: React.FC = ({ children }) => {
         show={!!openModals?.includes(ModalEnum.Transfer)}
         title="Transfer"
         onBackButtonClick={closeTransferModal}
-        className="text-light-100 bg-blue-100"
+        className="flex flex-col justify-center text-light-100 bg-blue-100"
       >
-        Not Implemented :(
+        404 The cosmic object you are looking for has disappeared beyond the
+        event horizon.
       </FullScreenModal>
     </div>
   )
