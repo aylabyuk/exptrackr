@@ -7,7 +7,7 @@ export interface MerchantsProps {
   merchants: Merchant[]
 }
 
-export const Categories = ({ merchants }: MerchantsProps) =>
+export const Merchants = ({ merchants }: MerchantsProps) =>
   merchants.map((merchant) => {
     return (
       <Option
@@ -32,4 +32,4 @@ export const Categories = ({ merchants }: MerchantsProps) =>
     )
   })
 
-export default Categories
+export default Merchants

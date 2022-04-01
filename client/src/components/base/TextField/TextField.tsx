@@ -40,6 +40,7 @@ export const TextField: React.FC<TextFieldProps> = ({
     >
       {startAdornment}
       <input
+        autoFocus
         placeholder={placeholder}
         type={type}
         className={clsx(

@@ -1,28 +1,15 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 
 import { LoginFormValues } from '../../../components/forms/LoginForm/LoginForm'
-import constants from '../../../constants'
 import { LoginResponse, User } from '../../../models'
 import deleteAllCookies from '../../../utils/deleteAllCookies'
-import getCookie from '../../../utils/getCookie'
+import { getBaseQuery } from '../utils'
 import { removeCurrentUser, setCurrentUser } from './user-reducer'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${constants.apiUrl}/user`,
-    credentials: 'include',
-    prepareHeaders: (headers) => {
-      const token = getCookie('jwt')
-
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
-
-      return headers
-    },
-  }),
+  baseQuery: getBaseQuery('/user'),
   extractRehydrationInfo: (action, { reducerPath }) => {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]

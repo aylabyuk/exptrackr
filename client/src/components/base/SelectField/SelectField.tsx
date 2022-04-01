@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import clsx from 'clsx'
 import { UseFormRegisterReturn } from 'react-hook-form'
+import * as PayIcons from 'react-pay-icons'
 
 import ChevronIcon from '../../vectors/ChevronIcon'
 import { motion } from 'framer-motion'
@@ -13,6 +14,12 @@ import OptionModal from './OptionsModal/OptionsModal'
 import TextField from '../TextField/TextField'
 import SearchIcon from '../../vectors/SearchIcon'
 
+export enum IconType {
+  Image = 'image',
+  Fontawesome = 'fontawesome',
+  Payment = 'payment',
+}
+
 export interface SelectFieldProps {
   placeholder: string
   children: React.ReactNode
@@ -22,8 +29,42 @@ export interface SelectFieldProps {
     selectionContainer?: string
   }
   register?: UseFormRegisterReturn
-  useFontAwesome?: boolean
+  iconType?: IconType
   onSearch?: (search: React.ChangeEvent) => void
+}
+
+const getIconComponent = (iconType: IconType, value: any) => {
+  const color = twConfig.theme.colors[(value.color as string) || '']
+
+  switch (iconType) {
+    case IconType.Fontawesome:
+      return (
+        <FontAwesomeIcon
+          className={`p-[6px] !w-[40px] !h-[40px] rounded-lg`}
+          icon={
+            require('@fortawesome/free-solid-svg-icons')[camelize(value.icon)]
+          }
+          color={color?.[100]}
+          style={{ backgroundColor: color?.[20] }}
+        />
+      )
+
+    case IconType.Payment: {
+      const Icon = PayIcons[value.icon]
+      return <Icon className="!w-[40px] !h-[40px]" />
+    }
+
+    default:
+      return (
+        <Image
+          src={value.icon}
+          alt={value.name}
+          width={40}
+          height={40}
+          className={`p-[6px] !w-10 !h-10 rounded-lg`}
+        />
+      )
+  }
 }
 
 export const SelectField: React.FC<SelectFieldProps> = ({
@@ -31,7 +72,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   classes,
   register,
-  useFontAwesome,
+  iconType = IconType.Image,
   onSearch,
 }) => {
   const [value, setValue] = useState<any>('')
@@ -46,8 +87,6 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     handleClose()
   }
 
-  const color = twConfig.theme.colors[(value.color as string) || '']
-
   return (
     <div
       className={clsx(
@@ -55,26 +94,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         classes?.container,
       )}
     >
-      {value.icon && useFontAwesome ? (
-        <FontAwesomeIcon
-          className={`p-[6px] !w-[40px] !h-[40px] rounded-lg`}
-          icon={
-            require('@fortawesome/free-solid-svg-icons')[camelize(value.icon)]
-          }
-          color={color?.[100]}
-          style={{ backgroundColor: color?.[20] }}
-        />
-      ) : (
-        value.icon && (
-          <Image
-            src={value.icon}
-            alt={value.name}
-            width={40}
-            height={40}
-            className={`p-[6px] !w-10 !h-10 rounded-lg`}
-          />
-        )
-      )}
+      {value.icon && getIconComponent(iconType, value)}
 
       <input
         className={clsx(
@@ -99,17 +119,20 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         containerClass={classes?.selectionContainer}
       >
         <div className="sticky inset-x-0 top-0 z-50 py-2 px-6 w-full bg-light-60">
-          <TextField
-            name="search"
-            placeholder="Search"
-            onChange={onSearch}
-            endAdornment={
-              <button>
-                <SearchIcon />
-              </button>
-            }
-          />
+          {onSearch && (
+            <TextField
+              name="search"
+              placeholder="Search"
+              onChange={onSearch}
+              endAdornment={
+                <button>
+                  <SearchIcon />
+                </button>
+              }
+            />
+          )}
         </div>
+
         {children}
       </OptionModal>
     </div>

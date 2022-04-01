@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { useGetCardsQuery } from '../../../redux/features/card/card-api'
 import { useGetAllCategoriesQuery } from '../../../redux/features/category/category-api'
 import { useSearchMerchantMutation } from '../../../redux/features/merchants/merchants-api'
 import BottomDrawer from '../../base/BottomDrawer/BottomDrawer'
 import Button from '../../base/Button/Button'
 
-import SelectField from '../../base/SelectField/SelectField'
+import SelectField, { IconType } from '../../base/SelectField/SelectField'
 import TextField from '../../base/TextField/TextField'
+import Cards from './Cards/Cards'
 import Categories from './Categories/Categories'
 import Merchants from './Merchants/Merchants'
 
@@ -13,8 +15,9 @@ export interface ExpenseFormProps {}
 
 export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
   const { data: categories, isSuccess } = useGetAllCategoriesQuery({})
-  const [filteredCat, setFilteredCat] = useState(categories)
   const [updateSearch, { data: merchants }] = useSearchMerchantMutation()
+  const { data: cards } = useGetCardsQuery({})
+  const [filteredCat, setFilteredCat] = useState(categories)
 
   const handleCategorySearch = useCallback(
     (e) => {
@@ -55,7 +58,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
           classes={{
             selectionContainer: 'py-4 py-4 !h-screen pt-0',
           }}
-          useFontAwesome
+          iconType={IconType.Fontawesome}
           onSearch={handleCategorySearch}
         >
           {Categories({ categories: filteredCat || [] })}
@@ -71,8 +74,17 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({}) => {
           {Merchants({ merchants: merchants || [] })}
         </SelectField>
 
+        <SelectField
+          placeholder="Wallet"
+          classes={{
+            selectionContainer: 'py-4 !h-screen pt-0',
+          }}
+          iconType={IconType.Payment}
+        >
+          {Cards({ cards: cards || [] })}
+        </SelectField>
+
         <TextField name="description" placeholder="Description" />
-        <TextField name="wallet" placeholder="Wallet" />
         <Button className="mt-6">Continue</Button>
         <a
           href="https://clearbit.com"
