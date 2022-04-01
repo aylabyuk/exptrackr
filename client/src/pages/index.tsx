@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -50,11 +50,13 @@ export const Onboarding: NextPage = () => {
 
   const isLoading = isFetching || isLoadingCurrentUser || isLoggingIn
 
-  if (me) {
-    setTimeout(() => {
-      router.push('/home')
-    }, 1000)
-  }
+  useEffect(() => {
+    if (me) {
+      setTimeout(() => {
+        router.push('/home')
+      }, 1000)
+    }
+  }, [me, router])
 
   return (
     <div>

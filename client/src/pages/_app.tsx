@@ -8,17 +8,22 @@ import RootContainer from '../components/layouts/RootContainer/RootContainer'
 import Brand from '../components/base/Brand/Brand'
 import { useAppSelector } from '../redux/hooks'
 import { selectCurrentUser } from '../redux/features/user/user-reducer'
+import { useEffect } from 'react'
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const user = useAppSelector(selectCurrentUser)
 
   const isOnboarding = router.pathname === '/'
 
-  if (!user && !isOnboarding) {
-    setTimeout(() => {
-      router.push('/')
-    }, 1000)
+  useEffect(() => {
+    if (!user && !isOnboarding) {
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
+    }
+  }, [user, isOnboarding, router])
 
+  if (!user && !isOnboarding) {
     return (
       <RootContainer>
         <div className="flex overflow-hidden -z-0 flex-col justify-center items-center w-screen max-w-screen-md h-screen bg-light-100">
