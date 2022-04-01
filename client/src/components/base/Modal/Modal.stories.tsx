@@ -12,13 +12,13 @@ const storyConfig: Meta = {
 }
 
 const Modal: Story = () => {
-  const [modal, setModal] = useState('info')
+  const [modal, setModal] = useState<'info' | 'error' | 'success' | ''>('info')
 
   const handleClose = () => {
     setModal('')
   }
 
-  const handleOpen = (type: string) => {
+  const handleOpen = (type: 'info' | 'error' | 'success') => {
     setModal(type)
   }
 
@@ -33,7 +33,7 @@ const Modal: Story = () => {
       </div>
 
       <ModalComponent
-        type={modal}
+        type={modal || 'info'}
         message="I am inside a modal"
         onRequestClose={handleClose}
         show={!!modal}

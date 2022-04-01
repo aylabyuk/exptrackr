@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import RecentTransaction, { RecentTransactionProps } from './RecentTransaction'
+import RecentTransaction from './RecentTransaction'
 
 const storyConfig: Meta = {
   title: 'Feature/RecentTransaction',
@@ -9,15 +9,13 @@ const storyConfig: Meta = {
   },
 }
 
-const Template: Story<RecentTransactionProps> = (args) => (
-  <RecentTransaction {...args} />
-)
+const Template: Story = (args) => <RecentTransaction {...args} />
 
 const RecentTransactionExample = Template.bind({})
 
 RecentTransactionExample.args = {
   children: 'content',
-} as RecentTransactionProps
+}
 
 export default storyConfig
 export { RecentTransactionExample }
