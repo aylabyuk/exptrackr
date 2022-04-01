@@ -19,7 +19,7 @@ export const Topbar: React.FC<TopbarProps> = ({ user, isScrolling }) => {
       <div className="absolute top-0 -z-10 w-full max-w-screen-md h-[312px] bg-gradient-to-b from-yellow-20 to-light-60 rounded-b-[32px]" />
       <div
         className={clsx(
-          'flex sticky top-0 flex-row justify-between items-center py-3 px-4 transition-colors',
+          'flex sticky top-0 z-0 flex-row justify-between items-center py-3 px-4 transition-colors',
           isScrolling && 'bg-light-100',
         )}
       >

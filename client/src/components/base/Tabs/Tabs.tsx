@@ -21,7 +21,7 @@ export const Tabs: React.FC<TabsProps> = ({
         {tabs.map((tab, index) => (
           <button
             key={tab}
-            className={clsx('relative w-full')}
+            className={clsx('relative -z-10 w-full')}
             onClick={() => onChange(index)}
           >
             {activeIndex === index && (

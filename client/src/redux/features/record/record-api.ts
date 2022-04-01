@@ -17,6 +17,10 @@ export const recordApi = createApi({
   baseQuery: getBaseQuery('/record'),
   tagTypes: ['Records'],
   endpoints: (builder) => ({
+    getRecentTransactions: builder.query<any, any>({
+      query: () => '/recent',
+      providesTags: ['Records'],
+    }),
     recordExpense: builder.mutation<unknown, ExpenseRequestPayload>({
       query: (expense) => ({
         url: `/expense`,
@@ -28,4 +32,5 @@ export const recordApi = createApi({
   }),
 })
 
-export const { useRecordExpenseMutation } = recordApi
+export const { useRecordExpenseMutation, useGetRecentTransactionsQuery } =
+  recordApi

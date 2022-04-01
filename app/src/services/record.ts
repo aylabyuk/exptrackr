@@ -1,9 +1,24 @@
+import mongoose from 'mongoose'
 import { Record } from '../models/record'
 
 class RecordService {
   async CreateRecord(record: any) {
     const recordToAdd = new Record(record)
     return recordToAdd.save()
+  }
+
+  async GetRecentTransactions(accountIds: string[]) {
+    const records = Record.find(
+      {
+        accountId: {
+          $in: accountIds.map((id) => new mongoose.Types.ObjectId(id)),
+        },
+      },
+      null,
+      { sort: { createdAt: 'desc' }, limit: 8 },
+    ).populate('categoryId')
+
+    return records
   }
 }
 

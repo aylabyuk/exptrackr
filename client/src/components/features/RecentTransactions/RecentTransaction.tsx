@@ -1,74 +1,24 @@
 import Link from 'next/link'
 import React from 'react'
-import Button from '../../base/Button/Button'
-import CardTransaction, {
-  CardTransactionProps,
-} from '../CardTransaction/CardTransaction'
+import { useGetRecentTransactionsQuery } from '../../../redux/features/record/record-api'
+import Spinner from '../../vectors/Spinner'
+import CardTransaction from '../CardTransaction/CardTransaction'
 
-export interface RecentTransactionProps {}
+export const RecentTransaction: React.FC = () => {
+  const {
+    data: transactions,
+    isLoading,
+    isFetching,
+  } = useGetRecentTransactionsQuery({})
 
-const transactions: CardTransactionProps[] = [
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-  {
-    icon: 'fa-utensils',
-    description: 'Starbucks date with parents',
-    category: 'Food',
-    amount: -50,
-    date: new Date(),
-  },
-]
+  if (!transactions || isLoading || isFetching) {
+    return (
+      <div className="flex flex-col justify-center items-center mt-8 w-full h-full">
+        <Spinner show />
+      </div>
+    )
+  }
 
-export const RecentTransaction: React.FC<RecentTransactionProps> = ({
-  children,
-}) => {
   return (
     <>
       <div className="flex flex-row justify-between items-center p-4 w-full">
@@ -82,7 +32,7 @@ export const RecentTransaction: React.FC<RecentTransactionProps> = ({
         </Link>
       </div>
       <div className="flex flex-col gap-2 px-4">
-        {transactions.map((transaction) => {
+        {transactions.map((transaction: any) => {
           return (
             <CardTransaction
               key={transaction.date.toString()}

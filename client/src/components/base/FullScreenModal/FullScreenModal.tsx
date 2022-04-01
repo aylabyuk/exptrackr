@@ -28,7 +28,7 @@ export const FullScreenModal: React.FC<FullScreenModalProps> = ({
           exit={{ left: '100%' }}
           transition={{ duration: 0.3, type: 'tween' }}
           className={clsx(
-            'flex overflow-hidden absolute top-0 left-0 flex-col w-full max-w-screen-md h-screen bg-light-100',
+            'flex overflow-hidden absolute top-0 flex-col w-full max-w-screen-md h-screen bg-light-100',
             className,
           )}
         >

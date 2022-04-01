@@ -36,6 +36,11 @@ class UserService {
 
     return tokenObject
   }
+
+  async FindByUsername(username: string) {
+    const foundUser = await User.findOne({ username })
+    return foundUser
+  }
 }
 
 export default UserService

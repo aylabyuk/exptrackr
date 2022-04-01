@@ -58,4 +58,6 @@ router.post(
   recordController.CreateIncomeRecord,
 )
 
+router.get('/recent', recordController.GetRecentTransactions)
+
 export { router as recordRouter }

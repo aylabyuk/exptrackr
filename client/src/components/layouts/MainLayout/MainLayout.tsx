@@ -34,16 +34,16 @@ export const MainLayout: React.FC = ({ children }) => {
   }
 
   return (
-    <div
-      className={clsx(
-        'overflow-hidden relative -z-0 grow max-w-screen-md h-screen bg-light-100',
-        isFabOpen || openModals?.length
-          ? 'overflow-y-hidden'
-          : 'overflow-y-scroll',
-      )}
-      ref={scrollRef}
-    >
-      <div className="mb-20 w-full">
+    <div className="overflow-hidden relative -z-0 grow max-w-screen-md h-screen max-h-screen bg-light-100">
+      <div
+        className={clsx(
+          'mb-20 w-full h-screen',
+          isFabOpen || openModals?.length
+            ? 'overflow-y-hidden'
+            : 'overflow-y-scroll',
+        )}
+        ref={scrollRef}
+      >
         {React.cloneElement(children as ReactElement, { isScrolling: y >= 30 })}
       </div>
 

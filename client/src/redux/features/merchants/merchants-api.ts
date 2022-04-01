@@ -13,18 +13,27 @@ export const merchantApi = createApi({
   endpoints: (builder) => ({
     searchMerchant: builder.mutation<Merchant[], string>({
       queryFn: async (searchString) => {
-        const result = await fetch(
-          `https://autocomplete.clearbit.com/v1/companies/suggest?query=${searchString}`,
-        )
+        try {
+          const result = await fetch(
+            `https://autocomplete.clearbit.com/v1/companies/suggest?query=${searchString}`,
+          )
 
-        const merchants: any[] = await result.json()
+          const merchants: any[] = await result.json()
 
-        return {
-          data: merchants.map((merchant) => ({
-            name: merchant.name,
-            description: merchant.domain,
-            icon: merchant.logo,
-          })),
+          return {
+            data: merchants.map((merchant) => ({
+              name: merchant.name,
+              description: merchant.domain,
+              icon: merchant.logo,
+            })),
+          }
+        } catch (error) {
+          return {
+            error: {
+              error: 'No merchant found',
+              status: 'FETCH_ERROR',
+            },
+          }
         }
       },
       invalidatesTags: ['Merchants'],

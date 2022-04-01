@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
+import Tabs from '../../components/base/Tabs/Tabs'
 import RecentTransaction from '../../components/features/RecentTransactions/RecentTransaction'
 import Topbar from '../../components/features/Topbar/Topbar'
 
@@ -9,6 +10,12 @@ export interface HomeProps {
 }
 
 export const Home: NextPage<HomeProps> = ({ isScrolling }) => {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const handleChangeTab = (value: number) => {
+    setActiveIndex(value)
+  }
+
   return (
     <>
       <Head>
@@ -23,6 +30,11 @@ export const Home: NextPage<HomeProps> = ({ isScrolling }) => {
           email: 'oriel.absin@gmail.com',
         }}
         isScrolling={isScrolling}
+      />
+      <Tabs
+        onChange={handleChangeTab}
+        tabs={['Today', 'Week', 'Month', 'Year']}
+        activeIndex={activeIndex}
       />
       <RecentTransaction />
     </>
