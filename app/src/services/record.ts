@@ -26,17 +26,21 @@ class RecordService {
     categories: mongoose.Types.ObjectId[],
     search: string,
   ) {
-    const records = Record.find({
-      accountId: {
-        $in: accountIds.map((id) => new mongoose.Types.ObjectId(id)),
+    const records = Record.find(
+      {
+        accountId: {
+          $in: accountIds.map((id) => new mongoose.Types.ObjectId(id)),
+        },
+        categoryId: {
+          $in: categories.map((id) => new mongoose.Types.ObjectId(id)),
+        },
+        description: {
+          $regex: search || '',
+        },
       },
-      categoryId: {
-        $in: categories.map((id) => new mongoose.Types.ObjectId(id)),
-      },
-      description: {
-        $regex: search || '',
-      },
-    })
+      null,
+      { sort: { createdAt: 'desc' } },
+    ).populate('categoryId')
 
     return records
   }
