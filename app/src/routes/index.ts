@@ -91,19 +91,15 @@ import { cardRouter } from './card'
  *  Record:
  *    type: object
  *    properties:
- *      date:
- *        type: date-time
- *        description: DateTime of the transaction
- *        example: 2017-07-21T17:32:28Z
  *      description:
  *        type: string
  *        description: A short description about the transaction
- *        example: "Mortgage, Rent, Home insurance, Property tax, HOA, Home Maintenance, Home Improvement, Home Security"
+ *        example: "Quarterly Spotify payment"
  *      amount:
  *        type: number
  *        description: Transaction amount
  *        example: 20.50
- *      accountId:
+ *      cardId:
  *        type: string
  *        description: Card account that the transaction will use
  *        example: "62507aa3191a8125eb9"

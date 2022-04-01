@@ -17,14 +17,13 @@ const Validators = {
   },
   createRecordValidator: {
     body: Joi.object({
-      date: Joi.date().required(),
-      description: Joi.string().required(),
       amount: Joi.number().required(),
-      accountId: Joi.string().required(),
+      cardId: Joi.string().required(),
       categoryId: Joi.string().required(),
       merchantWebsite: Joi.string(),
       merchantName: Joi.string().required(),
       merchantLogo: Joi.string(),
+      description: Joi.string().required(),
     }),
   },
 }
