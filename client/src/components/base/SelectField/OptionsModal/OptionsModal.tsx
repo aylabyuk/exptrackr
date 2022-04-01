@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import clsx from 'clsx'
-import React, { ReactElement, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts/dist/cjs/useOnClickOutside'
 
 export interface OptionModalProps {

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Head from 'next/head'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import TextField from '../../components/base/TextField/TextField'
 import SearchIcon from '../../components/vectors/SearchIcon'
@@ -10,20 +11,40 @@ import { useSearchQuery } from '../../redux/features/record/record-api'
 import CardTransaction from '../../components/features/CardTransaction/CardTransaction'
 import Spinner from '../../components/vectors/Spinner'
 import AdjustmentsIcon from '../../components/vectors/AdjustmentsIcon'
+import BottomDrawer from '../../components/base/BottomDrawer/BottomDrawer'
+import FilterSettings from '../../components/features/FilterSettings/FilterSettings'
 
 export const TransactionPage: React.FC = () => {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [filterDrawer, setFilterDrawer] = useState(false)
   const [search, setSearch] = useState('')
 
   const {
     data: transactions,
     isLoading,
     isFetching,
-  } = useSearchQuery({ search })
+  } = useSearchQuery({ search, categories: selectedCategories })
 
   const openModals = useAppSelector(selectOpenModals)
 
   const handleSearch = (e: any) => {
     setSearch(e.target.value)
+  }
+
+  const handleFilterOpen = () => setFilterDrawer(true)
+
+  const handleFilterClose = () => setFilterDrawer(false)
+
+  const handleReset = () => setSelectedCategories([])
+
+  const handleToggleItem = (category: string) => {
+    setSelectedCategories((current) => {
+      if (!current.includes(category)) {
+        return [...current, category]
+      }
+
+      return current.filter((c) => c !== category)
+    })
   }
 
   return (
@@ -34,8 +55,16 @@ export const TransactionPage: React.FC = () => {
       </Head>
       <div className="w-full">
         <div className="flex sticky top-0 flex-col items-end p-4 bg-light-60">
-          <button className="p-1 mb-3 text-dark-25 rounded-lg border-[1px] border-light-20">
+          <button
+            className="relative p-1 mb-3 text-dark-25 rounded-lg border-[1px] border-light-20"
+            onClick={handleFilterOpen}
+          >
             <AdjustmentsIcon />
+            {!!selectedCategories.length && (
+              <span className="inline-flex absolute top-0 right-0 justify-center items-center py-1 px-2 text-tiny font-bold leading-none text-light-100 bg-blue-100 rounded-full translate-x-1/2 -translate-y-1/2">
+                {selectedCategories.length}
+              </span>
+            )}
           </button>
 
           <TextField
@@ -71,6 +100,14 @@ export const TransactionPage: React.FC = () => {
             )
           })}
         </div>
+
+        <FilterSettings
+          show={filterDrawer}
+          onRequestClose={handleFilterClose}
+          selectedItems={selectedCategories}
+          onReset={handleReset}
+          onToggleItem={handleToggleItem}
+        />
       </div>
     </>
   )
