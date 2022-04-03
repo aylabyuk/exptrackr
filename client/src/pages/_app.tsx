@@ -9,8 +9,11 @@ import Brand from '../components/base/Brand/Brand'
 import { useAppSelector } from '../redux/hooks'
 import { selectCurrentUser } from '../redux/features/user/user-reducer'
 import { useEffect } from 'react'
+import usePWA from '../hooks/usePWA'
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  usePWA()
+
   const user = useAppSelector(selectCurrentUser)
 
   const isOnboarding = router.pathname === '/'

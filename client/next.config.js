@@ -11,12 +11,9 @@ const nextConfig = withPWA({
   },
   pwa: {
     dest: "public",
-    register: true,
-    skipWaiting: true,
+    register: false,
+    skipWaiting: false,
     maximumFileSizeToCacheInBytes: 3000000,
-    caches: [
-      
-    ]
   },
   exportPathMap: () => ({
     '/': { page: '/' },
