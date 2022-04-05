@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev --files src/index.ts",
+    "start:dev": "ts-node-dev --files src/index.ts",
+    "start": "ts-node --files src/index.ts",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "prettier --check '**/*.{js,jsx,ts,tsx,css}'",
     "type-check": "tsc --noEmit",
@@ -50,6 +51,7 @@
     "passport-jwt": "^4.0.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
+    "ts-node": "^10.7.0",
     "winston": "^3.6.0"
   },
   "lint-staged": {
