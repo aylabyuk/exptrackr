@@ -25,6 +25,9 @@ const options: swaggerJsDoc.Options = {
     },
     servers: [
       {
+        url: `https://exptrackr-api.herokuapp.com`,
+      },
+      {
         url: `http://localhost:${config.port}`,
       },
       {
@@ -58,6 +61,7 @@ mongooseConfig(app)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use(express.static('client/out'))
 app.use(logger)
 app.use(passport.initialize())
 

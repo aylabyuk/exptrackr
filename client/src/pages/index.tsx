@@ -83,7 +83,7 @@ export const Onboarding: NextPage = () => {
       <Modal
         type="error"
         show={isLoginError}
-        message={`Login failed, please check you email and password`}
+        message={`Login failed, please check your email and password`}
         onRequestClose={reset}
       />
     </div>
