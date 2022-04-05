@@ -32,7 +32,7 @@ jobs:
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
           process_type: app
-      - name: Build, Push and Release a Docker container to Heroku - client
+      - name: Build, Push and Release a Docker container to Heroku - web
         uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
@@ -41,6 +41,6 @@ jobs:
           dockerfile_directory: ./client
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
-          process_type: client
+          process_type: web
       
   
