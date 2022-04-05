@@ -28,7 +28,7 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_directory: ./nginx
+          dockerfile_directory: /nginx
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
           process_type: nginx
@@ -38,7 +38,7 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_directory: ./app
+          dockerfile_directory: /app
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
           process_type: app
@@ -48,7 +48,7 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_directory: ./client
+          dockerfile_directory: /client
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
           process_type: client
