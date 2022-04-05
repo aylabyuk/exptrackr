@@ -15,6 +15,9 @@ const nextConfig = withPWA({
     skipWaiting: false,
     maximumFileSizeToCacheInBytes: 3000000,
   },
+  env: {
+    NEXT_PUBLIC_APIURL: process.env.NEXT_PUBLIC_APIURL,
+  },
   exportPathMap: () => ({
     '/': { page: '/' },
     '/home': { page: '/home' },
