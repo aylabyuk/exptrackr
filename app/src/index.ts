@@ -54,6 +54,7 @@ const options: swaggerJsDoc.Options = {
 
 const specs = swaggerJsDoc(options)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
+app.use('/', express.static('client/out'))
 
 passportConfig(passport)
 mongooseConfig(app)
@@ -61,7 +62,6 @@ mongooseConfig(app)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-app.use(express.static('client/out'))
 app.use(logger)
 app.use(passport.initialize())
 
