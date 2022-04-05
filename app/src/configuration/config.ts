@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const config = {
-  port: 4000,
+  port: process.env.PORT || 4000,
   mongodbconnection: process.env.MONGODB_CONNECTION || '',
 }
 
