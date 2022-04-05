@@ -25,6 +25,9 @@ const options: swaggerJsDoc.Options = {
     },
     servers: [
       {
+        url: `https://exptrackr-api.herokuapp.com`,
+      },
+      {
         url: `http://localhost:${config.port}`,
       },
       {
