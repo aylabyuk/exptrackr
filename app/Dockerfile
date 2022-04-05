@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # our app is running on port 4000 within the container, so need to expose it
-EXPOSE 80
+EXPOSE 4000
 
 RUN npm run generateKeyPair
 
