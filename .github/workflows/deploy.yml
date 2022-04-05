@@ -27,11 +27,11 @@ jobs:
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_API }}
           dockerfile_directory: ./app
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
-          process_type: app
+          process_type: web
       - name: Build, Push and Release a Docker container to Heroku - web
         uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
