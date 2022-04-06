@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 
 import { wrapper } from '../redux/store'
@@ -6,25 +7,23 @@ import '../../styles/globals.css'
 import MainLayout from '../components/layouts/MainLayout/MainLayout'
 import RootContainer from '../components/layouts/RootContainer/RootContainer'
 import Brand from '../components/base/Brand/Brand'
-import { useAppSelector } from '../redux/hooks'
-import { selectCurrentUser } from '../redux/features/user/user-reducer'
-import { useEffect } from 'react'
 import usePWA from '../hooks/usePWA'
+import { useGetCurrentLoggedInUserQuery } from '../redux/features/user/user-api'
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  usePWA()
+  const { data: user, isError } = useGetCurrentLoggedInUserQuery({})
 
-  const user = useAppSelector(selectCurrentUser)
+  usePWA()
 
   const isOnboarding = router.pathname === '/'
 
   useEffect(() => {
-    if (!user && !isOnboarding) {
+    if (isError) {
       setTimeout(() => {
         router.push('/')
       }, 1000)
     }
-  }, [user, isOnboarding, router])
+  }, [isError, router])
 
   if (!user && !isOnboarding) {
     return (

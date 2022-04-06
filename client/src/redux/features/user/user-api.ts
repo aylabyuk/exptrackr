@@ -38,13 +38,13 @@ export const userApi = createApi({
       invalidatesTags: ['User'],
     }),
     logout: builder.mutation<any, any>({
-      queryFn: (__, { dispatch }) => {
+      queryFn: async (__, { dispatch }) => {
         deleteAllCookies()
         dispatch(removeCurrentUser())
 
         return {
           data: {
-            succes: true,
+            success: true,
           },
         }
       },

@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLogoutMutation } from '../../redux/features/user/user-api'
 
-export interface ProfilePageProps {
-  children: React.ReactNode
-}
+export const ProfilePage: React.FC = () => {
+  const [logout, { isSuccess }] = useLogoutMutation()
 
-export const ProfilePage: React.FC<ProfilePageProps> = ({ children }) => {
-  const [logout] = useLogoutMutation()
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
+    }
+  }, [isSuccess])
 
   return (
     <div className="flex flex-row justify-center p-4 w-full">
