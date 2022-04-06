@@ -79,34 +79,36 @@ export const TransactionPage: React.FC = () => {
         </div>
 
         <div className="flex overflow-hidden flex-col justify-start items-center pb-4 mb-20 w-full h-full">
-          {(isLoading || isFetching) && <Spinner className="mt-6" show />}
+          {isLoading || isFetching ? (
+            <Spinner className="mt-6" show />
+          ) : (
+            <div
+              className={clsx(
+                'flex absolute top-[134px] flex-col gap-3 pb-[200px] w-full h-full',
+                openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
+              )}
+            >
+              {transactions?.length &&
+                groupTransactionsByDate(transactions).map((group) => (
+                  <div key={group.date}>
+                    <div className="sticky top-0 p-2 w-screen max-w-screen-md text-title3 font-semibold text-left text-dark-25 bg-light-100">
+                      {group.date}
+                    </div>
 
-          <div
-            className={clsx(
-              'flex absolute top-[134px] flex-col gap-3 pb-[200px] w-full h-full',
-              openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
-            )}
-          >
-            {transactions?.length &&
-              groupTransactionsByDate(transactions).map((group) => (
-                <div key={group.date}>
-                  <div className="sticky top-0 p-2 w-screen max-w-screen-md text-title3 font-semibold text-left text-dark-25 bg-light-100">
-                    {group.date}
+                    {group.transactions.map((transaction) => (
+                      <CardTransaction
+                        key={transaction._id}
+                        amount={transaction.amount}
+                        category={transaction.category.name}
+                        date={transaction.createdAt}
+                        description={transaction.description}
+                        icon={transaction.category.icon}
+                      />
+                    ))}
                   </div>
-
-                  {group.transactions.map((transaction) => (
-                    <CardTransaction
-                      key={transaction._id}
-                      amount={transaction.amount}
-                      category={transaction.category.name}
-                      date={transaction.createdAt}
-                      description={transaction.description}
-                      icon={transaction.category.icon}
-                    />
-                  ))}
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
+          )}
         </div>
 
         <FilterSettings
