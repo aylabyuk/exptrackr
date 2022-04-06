@@ -35,7 +35,7 @@ export const Topbar: React.FC<TopbarProps> = ({ user, isScrolling }) => {
           </a>
         </Link>
 
-        <Brand className="mb-0 max-h-9 text-title3" />
+        <Brand className="mb-0 max-h-9 !text-title3" />
         <button>
           <BellIcon className="!w-9 !h-9 text-violet-100" />
         </button>

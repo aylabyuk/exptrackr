@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
-import { AnimatePresence, motion } from 'framer-motion'
 
 import TextField from '../../components/base/TextField/TextField'
 import SearchIcon from '../../components/vectors/SearchIcon'
@@ -11,8 +10,8 @@ import { useSearchQuery } from '../../redux/features/record/record-api'
 import CardTransaction from '../../components/features/CardTransaction/CardTransaction'
 import Spinner from '../../components/vectors/Spinner'
 import AdjustmentsIcon from '../../components/vectors/AdjustmentsIcon'
-import BottomDrawer from '../../components/base/BottomDrawer/BottomDrawer'
 import FilterSettings from '../../components/features/FilterSettings/FilterSettings'
+import groupTransactionsByDate from '../../utils/goupTransactionsByDate'
 
 export const TransactionPage: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -79,26 +78,35 @@ export const TransactionPage: React.FC = () => {
           />
         </div>
 
-        <div
-          className={clsx(
-            'flex flex-col justify-start items-center pb-4 mb-20 w-full h-full',
-            openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
-          )}
-        >
+        <div className="flex overflow-hidden flex-col justify-start items-center pb-4 mb-20 w-full h-full">
           {(isLoading || isFetching) && <Spinner className="mt-6" show />}
 
-          {transactions?.map((transaction) => {
-            return (
-              <CardTransaction
-                key={transaction._id}
-                amount={transaction.amount}
-                category={transaction.category.name}
-                date={transaction.createdAt}
-                description={transaction.description}
-                icon={transaction.category.icon}
-              />
-            )
-          })}
+          <div
+            className={clsx(
+              'flex absolute top-[134px] flex-col gap-3 pb-[200px] w-full h-full',
+              openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
+            )}
+          >
+            {transactions?.length &&
+              groupTransactionsByDate(transactions).map((group) => (
+                <div key={group.date}>
+                  <div className="sticky top-0 p-2 w-screen max-w-screen-md text-title3 font-semibold text-left text-dark-25 bg-light-100">
+                    {group.date}
+                  </div>
+
+                  {group.transactions.map((transaction) => (
+                    <CardTransaction
+                      key={transaction._id}
+                      amount={transaction.amount}
+                      category={transaction.category.name}
+                      date={transaction.createdAt}
+                      description={transaction.description}
+                      icon={transaction.category.icon}
+                    />
+                  ))}
+                </div>
+              ))}
+          </div>
         </div>
 
         <FilterSettings

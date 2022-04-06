@@ -28,7 +28,7 @@ export interface CategoryResponse {
 export interface FilteredRecordResponse {
   _id: string
   type: string
-  date: Date
+  date: string
   description: string
   amount: number
   accountId: string
