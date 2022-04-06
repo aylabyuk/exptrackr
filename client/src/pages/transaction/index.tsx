@@ -3,15 +3,11 @@ import Head from 'next/head'
 
 import TextField from '../../components/base/TextField/TextField'
 import SearchIcon from '../../components/vectors/SearchIcon'
-import clsx from 'clsx'
-import { useAppSelector } from '../../redux/hooks'
-import { selectOpenModals } from '../../redux/features/ui/ui-reducer'
 import { useSearchQuery } from '../../redux/features/record/record-api'
-import CardTransaction from '../../components/features/CardTransaction/CardTransaction'
 import Spinner from '../../components/vectors/Spinner'
 import AdjustmentsIcon from '../../components/vectors/AdjustmentsIcon'
 import FilterSettings from '../../components/features/FilterSettings/FilterSettings'
-import groupTransactionsByDate from '../../utils/goupTransactionsByDate'
+import Transactions from '../../components/features/Transactions/Transactions'
 
 export const TransactionPage: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -23,8 +19,6 @@ export const TransactionPage: React.FC = () => {
     isLoading,
     isFetching,
   } = useSearchQuery({ search, categories: selectedCategories })
-
-  const openModals = useAppSelector(selectOpenModals)
 
   const handleSearch = (e: any) => {
     setSearch(e.target.value)
@@ -82,32 +76,7 @@ export const TransactionPage: React.FC = () => {
           {isLoading || isFetching ? (
             <Spinner className="mt-6" show />
           ) : (
-            <div
-              className={clsx(
-                'flex absolute top-[134px] flex-col gap-3 pb-[200px] w-full h-full',
-                openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
-              )}
-            >
-              {transactions?.length &&
-                groupTransactionsByDate(transactions).map((group) => (
-                  <div key={group.date}>
-                    <div className="sticky top-0 p-2 w-screen max-w-screen-md text-title3 font-semibold text-left text-dark-25 bg-light-100">
-                      {group.date}
-                    </div>
-
-                    {group.transactions.map((transaction) => (
-                      <CardTransaction
-                        key={transaction._id}
-                        amount={transaction.amount}
-                        category={transaction.category.name}
-                        date={transaction.createdAt}
-                        description={transaction.description}
-                        icon={transaction.category.icon}
-                      />
-                    ))}
-                  </div>
-                ))}
-            </div>
+            <Transactions transactions={transactions} />
           )}
         </div>
 

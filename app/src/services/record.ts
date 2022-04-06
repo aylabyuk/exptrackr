@@ -34,9 +34,7 @@ class RecordService {
         categoryId: {
           $in: categories.map((id) => new mongoose.Types.ObjectId(id)),
         },
-        description: {
-          $regex: search || '',
-        },
+        description: { $regex: search || '', $options: 'i' },
       },
       null,
       { sort: { createdAt: 'desc' } },
