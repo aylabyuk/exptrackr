@@ -4,6 +4,7 @@ import passport from 'passport'
 
 import routes from './routes'
 import apiErrorHandler from './middleware/apiErrorHandler'
+import staticPageHandler from './middleware/staticPageHandler'
 import logger from './middleware/logger'
 
 import config from './configuration/config'
@@ -54,7 +55,6 @@ const options: swaggerJsDoc.Options = {
 
 const specs = swaggerJsDoc(options)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
-app.use('/', express.static('client/out'))
 
 passportConfig(passport)
 mongooseConfig(app)
@@ -66,6 +66,9 @@ app.use(logger)
 app.use(passport.initialize())
 
 app.use('/api', routes)
+
+app.use(express.static('client/out'))
+app.use(staticPageHandler)
 
 app.use(apiErrorHandler)
 
