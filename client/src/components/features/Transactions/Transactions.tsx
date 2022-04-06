@@ -16,7 +16,7 @@ export const Transactions: React.FC<TransactionsProps> = ({ transactions }) => {
   return (
     <div
       className={clsx(
-        'flex absolute top-[134px] flex-col gap-3 px-3 pb-[200px] w-full h-full',
+        'flex overflow-x-hidden absolute top-[134px] flex-col gap-3 px-3 pb-[200px] w-full h-full',
         openModals?.length ? 'overflow-y-hidden' : 'overflow-y-scroll',
       )}
     >
