@@ -45,12 +45,14 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({
         )}
       </div>
       <div className="flex flex-col grow justify-between py-[6px] max-w-[50%] h-[60px] whitespace-nowrap">
-        <span className="text-body2 font-medium text-dark-25">{category}</span>
+        <span className="overflow-hidden text-body2 font-medium text-dark-25 text-ellipsis">
+          {category}
+        </span>
         <span className="overflow-hidden text-[14px] font-medium text-light-20 text-ellipsis">
           {description}
         </span>
       </div>
-      <div className="flex flex-col grow justify-between items-end py-[6px] h-[60px]">
+      <div className="flex flex-col grow justify-between items-end py-[6px] h-[60px] whitespace-nowrap">
         <span
           className={clsx(
             'font-semibold',
