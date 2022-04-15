@@ -8,7 +8,17 @@ Credentials:
 - email: `oriel.absin@gmail.com`
 - password: `password123`
 
----
+## Technologies used
+
+- [Typescript](https://www.typescriptlang.org/)
+- [NextJS](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Redux-Toolkit](https://redux-toolkit.js.org/)
+- [Storybook](https://storybook.js.org/)
+- [Express](https://expressjs.com/)
+- [Mongoose](https://mongoosejs.com/)
+
+___
 ## Requirements
 
 For development, you will need Node.js and Nginx installed in your environement.
@@ -94,15 +104,5 @@ Docker is also required to run the production build locally.
 
     make sure to run this on the root directory and local nginx is disabled
     $ docker-compose up --build
-
-## Technologies used
-
-- [Typescript](https://www.typescriptlang.org/)
-- [NextJS](https://nextjs.org/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Redux-Toolkit](https://redux-toolkit.js.org/)
-- [Storybook](https://storybook.js.org/)
-- [Express](https://expressjs.com/)
-- [Mongoose](https://mongoosejs.com/)
     
     
