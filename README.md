@@ -54,8 +54,7 @@ Docker is also required to run the production build locally.
   }
   ```
 
-2. app `.env` file.
-  inside `/app` add a .env file with the following values.
+2. Inside `/app` add a .env file with the following values.
   
   ```
   PORT=4000
@@ -64,8 +63,7 @@ Docker is also required to run the production build locally.
   
   Note: please provide your own `MONGODB_CONNECTION`
   
-3. client `.env` file.
-  inside `/client` add a .env file with the following value.
+3. Inside `/client` add a .env file with the following value.
 
   ```
   NEXT_PUBLIC_APIURL=http://localhost:80/api
@@ -78,14 +76,18 @@ Docker is also required to run the production build locally.
     ```
 5. Running the app (backend)
 
+    ```
     $ cd app
     $ npm run start:dev
+    ```
 
 6. Running the client (frontend)
 
+    ```
     $ cd ../client
     $ npm run dev
-
+    ```
+    
 7. See the app running at `localhost:80`
 
 ## Build and run on docker
